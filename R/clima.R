@@ -140,9 +140,9 @@ clima <- function(bios, tmin = NULL, tmax = NULL, tavg = NULL, prcp = NULL,
     chituc <- ventana(tavg, period, circular) / period
   }
   # Window message
-  if (any(c(8:11, 16:19, 24:27) %in% bios)) {
+  if (any(c(8:11, 16:19) %in% bios)) {
     message(
-      paste0(paste0("Bio", sprintf("%02d", c(8:11, 16:19, 24:27)[c(8:11, 16:19, 24:27) %in% bios]),
+      }paste0(paste0("Bio", sprintf("%02d", c(8:11, 16:19, 24:27)[c(8:11, 16:19) %in% bios]),
                     collapse = ", "),
              " was(were) built with a period of ", period,
              " units with", if(circular == FALSE) "out", " circularity.")
