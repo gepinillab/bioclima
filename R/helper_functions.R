@@ -14,7 +14,7 @@ misqua <- function(tmin, tmax) {
 cv_cli <- function(prcp) {
   pr <- prcp + 1
   x <- terra::mean(abs(pr))
-  cv <- 100 * stdev(pr, na.rm = TRUE) / x
+  cv <- 100 * stdev(pr, pop = FALSE, na.rm = TRUE) / x
   return(cv)
 }
 
@@ -32,11 +32,12 @@ ventana <- function(x, period, circular)  {
     ind <- c(1:lng,  1:(period - 1))
     m <- matrix(ncol = period, nrow = lng)
     for (i in 1:period) {
-      if (i != 3) {
-        m[, i] <- ind[i:(lng + i - 1)]
-      } else {
-        m[, i] <- ind[(i - 1):(lng + i - 2)]
-      }
+      m[, i] <- ind[i:(lng + i - 1)]
+      # if (i != 3) {
+      #   m[, i] <- ind[i:(lng + i - 1)]
+      # } else {
+      #   m[, i] <- ind[(i - 1):(lng + i - 2)]
+      # }
     }
   }
   if (circular == FALSE) {
