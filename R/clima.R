@@ -87,7 +87,7 @@ clima <- function(bios, tmin = NULL, tmax = NULL, tavg = NULL, prcp = NULL,
                                  purrr::discard(is.null), c) %>%
       sum() %>%
       terra::unique() %>%
-      as.vector()
+      unlist()
     # Delete values that shared pixel NA in all layers
     intra_na <- intra_na[intra_na != 0]
     # Check if there is sum of pixel with values is equal
@@ -101,7 +101,7 @@ clima <- function(bios, tmin = NULL, tmax = NULL, tavg = NULL, prcp = NULL,
   }
 
   # Bios that requires tavg
-  if (any(c(1, 4, 8, 9, 10, 11, 18, 19, 26, 27) %in% bios)) {
+  if (any(c(1, 4, 8, 9, 10, 11, 18, 19) %in% bios)) {
     if (is.null(tavg)) tavg <- misqua(tmin = tmin, tmax = tmax)
   }
 
@@ -142,7 +142,7 @@ clima <- function(bios, tmin = NULL, tmax = NULL, tavg = NULL, prcp = NULL,
   # Window message
   if (any(c(8:11, 16:19) %in% bios)) {
     message(
-      paste0(paste0("Bio", sprintf("%02d", c(8:11, 16:19, 24:27)[c(8:11, 16:19) %in% bios]),
+      paste0(paste0("Bio", sprintf("%02d", c(8:11, 16:19)[c(8:11, 16:19) %in% bios]),
                     collapse = ", "),
              " was(were) built with a period of ", period,
              " units with", if(circular == FALSE) "out", " circularity.")
@@ -163,6 +163,6 @@ clima <- function(bios, tmin = NULL, tmax = NULL, tavg = NULL, prcp = NULL,
 
   # Create a unique spatRaster
   bios_rast <- rast(mget(paste0("bio", sprintf("%02d", bios))))
-  bios_rast <- round(bios_rast, 0)
+  # bios_rast <- round(bios_rast, 0)
   return(bios_rast)
 }
