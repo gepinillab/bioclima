@@ -9,19 +9,18 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Paquete bioclima
-## Variables bioclimáticas utilizando terra
+# Paquete bioclima: *Variables bioclimáticas utilizando terra*
 
-El paquete `bioclima` es un paquete de R diseñado para generar eficientemente variables bioclimáticas utilizando el paquete terra en lugar de raster. Esta elección de dependencia hace que el proceso sea más rápido, ya que terra está optimizado para operaciones raster a gran escala. El paquete `bioclima` también tiene disponible la opción de crear un subconjunto de variables sin necesidad de construir todas ellas. Además, ofrece la opción de crear variables bioclimáticas basadas en otros períodos de tiempo (por ejemplo, semanas, días), definir períodos diferentes a los cuartos (utilizados para bio08, 09, 10, 11, 16, 17, 18, 19). O incluso utilizar la temperatura promedio real (parámetro 'tavg'), en lugar de una aproximación basada en la temperatura máxima y mínima ((tmax + tmin)) / 2).
+El paquete `bioclima` es un paquete de R diseñado para generar eficientemente variables bioclimáticas utilizando el paquete terra en lugar de raster. Esta elección de dependencia hace que el proceso sea más rápido, ya que terra está optimizado para operaciones raster a gran escala. El paquete `bioclima` también tiene disponible la opción de crear un subconjunto de variables sin necesidad de construir todas ellas. Además, ofrece la opción de crear variables bioclimáticas basadas en otros períodos de tiempo (por ejemplo, semanas, días), definir períodos diferentes a los trimestres (utilizados para bio08, 09, 10, 11, 16, 17, 18, 19). O incluso utilizar la temperatura promedio real (parámetro 'tavg'), en lugar de una aproximación basada en la temperatura máxima y mínima ((tmax + tmin)) / 2).
 
-La funcionalidad proporcionada por `bioclima` está inspirada en la función biovars del paquete dismo. El objetivo es agilizar el proceso de creación de variables bioclimáticas para modelado ecológico y ambiental.
+La funcionalidad proporcionada por `bioclima` está inspirada en la función biovars del paquete `dismo`. El objetivo es agilizar el proceso de creación de variables bioclimáticas para modelado ecológico y ambiental.
 
 **Aviso: Este paquete está en desarrollo**
 
 Este paquete de R está actualmente en desarrollo y puede contener errores, fallos o características incompletas.
 
-## Notas importantes
-Utilice este paquete bajo su propio riesgo. El equipo de desarrollo no garantiza la estabilidad o corrección del código.
+### Notas importantes
+Utilice este paquete bajo su propio riesgo. El desarrollador no garantiza la estabilidad o corrección del código.
 
 Se agradecen las contribuciones y los informes de errores. Si encuentra problemas o tiene sugerencias de mejora, por favor abra un problema ("Issues") en el repositorio de [GitHub](https://github.com/gepinillab/bioclima).
 
@@ -30,15 +29,14 @@ Gracias por su comprensión y colaboración mientras trabajo para mejorar y esta
 ## Instalación
 
 Para instalar `bioclima`, puede utilizar el paquete `remotes`. Si aún no lo tiene instalado, puede hacerlo ejecutando:
-```{r}
+```{r message=FALSE}
 install.packages("remotes")
 remotes::install_github("gepinillab/bioclima")
 ```
-## Ejemplo
 
 Instale y cargue los paquetes necesarios:
 
-```{r}
+```{r message=FALSE}
 # Cargue librerias e instálelas si es necesario
 if (!require("climateR")) {
   remotes::install_github("mikejohnson51/climateR") }
@@ -58,8 +56,8 @@ if (!require("bioclima")) {
   remotes::install_github("gepinillab/bioclima") }
 ```
 
-### Obtener datos mensuales de El Salvador
-Descargue variables climáticas mensuales de la base de datos [Terraclimate](https://www.climatologylab.org/terraclimate.html) utilizando el paquete climateR. Estos rasters tienen una resolución espacial de 2.5 minutos de arco y una resolución temporal mensual desde 1958 a 2022 (cada año la base de datos se actualiza para incluir los meses del año pasado). El siguiente ejemplo creará variables bioclimáticas para El Salvador resumiendo un período de 30 años.
+## Obtener datos mensuales de El Salvador
+Descargue variables climáticas mensuales de la base de datos [Terraclimate](https://www.climatologylab.org/terraclimate.html) utilizando el paquete `climateR`. Estos rasters tienen una resolución espacial de 2.5 minutos de arco y una resolución temporal mensual desde 1958 a 2022 (cada año la base de datos se actualiza para incluir los meses del año pasado). El siguiente ejemplo creará variables bioclimáticas para El Salvador resumiendo un período de 30 años.
 
 ```{r}
 # Descargar datos de El Salvador (30 años de datos mensuales; 360 meses)
@@ -76,6 +74,7 @@ ppt <- env.data$ppt
 # Checar estructura de spatRaster (incluye 360 meses cada uno)
 tmax
 ```
+
 Por favor, verifique los rasters antes de guardarlos. El 15 de noviembre de 2023, los datos climáticos obtenidos estaban invertidos. Afortunadamente, se puede corregir utilizando este código.
 
 ```{r}
@@ -90,6 +89,7 @@ tmax <- rast(x = tmax, vals = values(t(tmax)))
 ppt <- rast(x = ppt, vals = values(t(ppt)))
 plot(ppt[[1]])
 ```
+
 Luego, podrá guardar los rasters mensuales en un único archivo TIFF. Cada mes se guardará en las bandas de un raster, por lo que no es necesario guardar cada mes individualmente.
 
 ```{r}
@@ -107,10 +107,10 @@ terra::writeRaster(ppt,
                    overwrite = TRUE)
 ```
 
-### Crear variables bioclimáticas
+## Crear variables bioclimáticas
 Una vez que tenga las variables mensuales, es hora de crear las variables bioclimáticas basadas en los promedios mensuales (n = 12 meses). Primero, necesitamos crear promedios mensuales para cada variable, y luego usar la función clima() para obtener las 19 variables bioclimáticas.
 
-```{r}
+```{r message=FALSE}
 tmin_avg <- tapp(tmin, index = rep(1:12, 30), fun = mean)
 tmax_avg <- tapp(tmax, index = rep(1:12, 30), fun = mean)
 ppt_avg <- tapp(ppt, index = rep(1:12, 30), fun = mean, na.rm = TRUE)
@@ -119,7 +119,8 @@ bios <- bioclima::clima(tmin = tmin_avg, tmax = tmax_avg, prcp = ppt_avg,
               bios = c(1:19), period = 3, circular = TRUE)
 plot(bios)
 ```
-#### Diferencias con dismo::biovars()
+
+### Diferencias con dismo::biovars()
 Obtener variables bioclimáticas usando la función del paquete `dismo`.
 ```{r}
 # Convertir a stack rasters
@@ -133,11 +134,12 @@ bios_dismo <- dismo::biovars(prec = r.ppt,
 # Comparar salidas (la salida de dismo se convierte a spatRaster)
 plot(rast(bios_dismo) - bios)
 ```
-Aunque existen diferencias en algunas variables entre las dos salidas. Si detallan los valores de diferencia, muchos de ellos están en decimales en base 13 o 15 (e-13 o e-15). Dichas diferencias deben ser por el redondeo de números entre el código base de `terra` y `dismo`. La última afirmación es especulativa, pero sabiendo que la diferencia es mínima, podemos decir que los resultados son las mismas.
 
-##### Tiempo de ejecución
+Aunque existen diferencias en algunas variables entre las dos salidas. Si detallan los valores de diferencia, muchos de ellos están en decimales en base 13 o 15 (e-13 o e-15). Dichas diferencias deben ser por el redondeo de números entre el código base de `terra` y `dismo`. La última afirmación es especulativa, pero sabiendo que la diferencia es mínima, podemos decir que los resultados son los mismos.
 
-```{r}
+#### Tiempo de ejecución
+
+```{r message=FALSE}
 # Correr bioclima
 start.bioclima <- Sys.time()
 bios <- bioclima::clima(tmin = tmin_avg, tmax = tmax_avg, prcp = ppt_avg,
@@ -153,11 +155,12 @@ end.biovars <- Sys.time()
 time.biovars <- end.biovars - start.biovars
 time.biovars - time.bioclima
 ```
+
 Al comparar los tiempos de ejecución, la diferencia para un área cómo El Salvador es mínima. Pero al aumentar la resolución, el área (más celdas), o al hacer series temporales, está diferencia puede ser significativa. Por ejemplo, al correr el mismo ejemplo con Colombia (un área que es 50 veces más grande que El Salvador) la diferencia fue de casi un minuto, siendo `bioclima` 25 veces más rápido (resultados no mostrados en este documento y que dependen de la computadora utilizada).
 
-##### Seleccionar un grupo de variables
+#### Seleccionar un grupo de variables
 Muchas veces no es necesario utilizar todas las variables bioclimáticas en nuestros análisis. Por este motivo, y a diferencia de biovars(), se puede definir en el parámetro 'bios' el número que identifica cada una de las variables bioclimáticas. De esta forma no es necesario obtener todas las 19 variables para luego solo seleccionar las variables de interés. En el siguiente ejemplo solo se obtendrán cuatro variables (bio05, bio06, bio13 y bio14). Este ejemplo es algo más rápido, ya que no es necesario calcular internamente los trimestres más cálidos/fríos o secos/húmedos.
-```{r}
+```{r message=FALSE}
 bios4 <- bioclima::clima(
   tmin = tmin_avg, 
   tmax = tmax_avg, 
@@ -169,7 +172,7 @@ plot(bios4)
 ```
 
 ## Contruir series temporales bioclimaticas
-Ya que se cuenta con una función más rápida para obtener las variables bioclimáticas, ahora vamos a crear una serie temporal de estas. En este ejemplo, vamos a utilizar las variables mensuales descargadas previamente (360 meses). Sabiendo que solo se tienen 30 años de información, vamos a crear una serie de tiempo usando un promedio móvil mensual (moviendo un mes cada vez hacia el presente) con una ventana temporal de veinte años (cada promedio será de 240 meses). Este ejercicio creara una serie de 121 sets de variables que promedian veinte años cada una. El primer set corresponderá al promedio de enero 1990 a diciembre 2009, el segundo al promedio de febrero 1990 a enero 2010... y el último a enero 2000 a diciembre 2019.
+Ya que se cuenta con una función más rápida para obtener las variables bioclimáticas, ahora vamos a crear una serie temporal de estas. En este ejemplo, vamos a utilizar las variables mensuales descargadas previamente (360 meses). Sabiendo que solo se tienen 30 años de información, vamos a crear una serie de tiempo usando un promedio móvil mensual (moviendo un mes cada vez hacia el presente) con una ventana temporal de veinte años (cada promedio será de 240 meses). Este ejercicio creara una serie de 121 sets de variables que promedian veinte años cada una. El primer set corresponderá al promedio de enero 1990 a diciembre 2009, el segundo al promedio de febrero 1990 a enero 2010... y el último de enero 2000 a diciembre 2019.
 
 Para guardar los intervalos de veinte años, se puede crear un índice basado en el mes de inicio. Luego se utilizará un loop para crear cada periodo de veinte años.
 
@@ -179,7 +182,7 @@ mes_inicial <- seq(as.Date("1990-01-01", format = "%Y-%m-%d"),
                    by = "1 month")
 head(mes_inicial)
 ```
-```{r}
+```{r message=FALSE, }
 dir.create(here("./data/bios"))
 for (i in 1:length(mes_inicial)) {
   # Crear promedios de cada mes (e.g., promedios de veinte eneros, 
