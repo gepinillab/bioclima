@@ -120,7 +120,7 @@ ejecutando:</p>
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"gepinillab/bioclima"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## </span></span>
-<span><span class="co">## * checking for file ‘/tmp/RtmpIaCReT/remotes253a635e6c60/gepinillab-bioclima-eabc81f/DESCRIPTION’ ... OK</span></span>
+<span><span class="co">## * checking for file ‘/tmp/RtmpLVyW9G/remotes282c737997ee/gepinillab-bioclima-ad10683/DESCRIPTION’ ... OK</span></span>
 <span><span class="co">## * preparing ‘bioclima’:</span></span>
 <span><span class="co">## * checking DESCRIPTION meta-information ... OK</span></span>
 <span><span class="co">## * checking for LF line-endings in source and make files and shell scripts</span></span>
@@ -144,7 +144,7 @@ ejecutando:</p>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"here"</span><span class="op">)</span> <span class="op">}</span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://magrittr.tidyverse.org" class="external-link">"magrittr"</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"magrittr"</span><span class="op">)</span> <span class="op">}</span></span>
-<span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st">"bioclima"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://gepinillab.github.io/bioclima/">"bioclima"</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"gepinillab/bioclima"</span><span class="op">)</span> <span class="op">}</span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -207,21 +207,21 @@ necesario guardar cada mes individualmente.</p>
 <span>                   <span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"tmin_1990-01-a-2019-12.tif"</span><span class="op">)</span>,</span>
 <span>                   overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Warning in x@cpp$writeRaster(opt): GDAL Message 1:</span></span>
-<span><span class="co">## /tmp/Rtmp9EC7Ug/data/tmin_1990-01-a-2019-12.tif: Metadata exceeding 32000 bytes</span></span>
+<span><span class="co">## /tmp/RtmpOu7bWS/data/tmin_1990-01-a-2019-12.tif: Metadata exceeding 32000 bytes</span></span>
 <span><span class="co">## cannot be written into GeoTIFF. Transferred to PAM instead.</span></span></code></pre>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/writeRaster.html" class="external-link">writeRaster</a></span><span class="op">(</span><span class="va">tmax</span>,</span>
 <span>                   <span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"tmax_1990-01-a-2019-12.tif"</span><span class="op">)</span>,</span>
 <span>                   overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Warning in x@cpp$writeRaster(opt): GDAL Message 1:</span></span>
-<span><span class="co">## /tmp/Rtmp9EC7Ug/data/tmax_1990-01-a-2019-12.tif: Metadata exceeding 32000 bytes</span></span>
+<span><span class="co">## /tmp/RtmpOu7bWS/data/tmax_1990-01-a-2019-12.tif: Metadata exceeding 32000 bytes</span></span>
 <span><span class="co">## cannot be written into GeoTIFF. Transferred to PAM instead.</span></span></code></pre>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/writeRaster.html" class="external-link">writeRaster</a></span><span class="op">(</span><span class="va">ppt</span>,</span>
 <span>                   <span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"ppt_1990-01-a-2019-12.tif"</span><span class="op">)</span>,</span>
 <span>                   overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Warning in x@cpp$writeRaster(opt): GDAL Message 1:</span></span>
-<span><span class="co">## /tmp/Rtmp9EC7Ug/data/ppt_1990-01-a-2019-12.tif: Metadata exceeding 32000 bytes</span></span>
+<span><span class="co">## /tmp/RtmpOu7bWS/data/ppt_1990-01-a-2019-12.tif: Metadata exceeding 32000 bytes</span></span>
 <span><span class="co">## cannot be written into GeoTIFF. Transferred to PAM instead.</span></span></code></pre>
 </div>
 <div class="section level3">
@@ -283,7 +283,7 @@ mismos.</p>
 <span><span class="va">end.biovars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">time.biovars</span> <span class="op">&lt;-</span> <span class="va">end.biovars</span> <span class="op">-</span> <span class="va">start.biovars</span></span>
 <span><span class="va">time.biovars</span> <span class="op">-</span> <span class="va">time.bioclima</span></span></code></pre></div>
-<pre><code><span><span class="co">## Time difference of 0.201818 secs</span></span></code></pre>
+<pre><code><span><span class="co">## Time difference of 0.1891458 secs</span></span></code></pre>
 <p>Al comparar los tiempos de ejecución, la diferencia para un área cómo
 El Salvador es mínima. Pero al aumentar la resolución, el área (más
 celdas), o al hacer series temporales, está diferencia puede ser
