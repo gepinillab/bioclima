@@ -61,7 +61,7 @@ Descargue variables climáticas mensuales de la base de datos [Terraclimate](htt
 
 ```{r}
 # Descargar datos de El Salvador (30 años de datos mensuales; 360 meses)
-env.data <- getTerraClim(AOI = aoi_get("El Salvador"),  # Área de interés
+env.data <- getTerraClim(AOI = aoi_get(country = "El Salvador"),  # Área de interés
                          varname =  c("tmin", "tmax", "ppt"),  # Variables a descargar
                          startDate = "1990-01-01",  # Fecha límite inferior
                          endDate = "2019-12-01")  # Fecha límite superior
@@ -75,7 +75,6 @@ ppt <- env.data$ppt
 tmax
 ```
 
-Por favor, verifique los rasters antes de guardarlos. El 15 de noviembre de 2023, los datos climáticos obtenidos estaban invertidos. Afortunadamente, se puede corregir utilizando este código.
 
 ```{r}
 # Graficar el primer mes (1990-01) de precipitación
@@ -84,10 +83,10 @@ plot(ppt[[1]])
 ```
 ```{r}
 # EJECUTAR ESTE CÓDIGO SI LOS VALORES DEL MAPA ESTÁN INVERTIDOS
-tmin <- rast(x = tmin, vals = values(t(tmin)))
-tmax <- rast(x = tmax, vals = values(t(tmax)))
-ppt <- rast(x = ppt, vals = values(t(ppt)))
-plot(ppt[[1]])
+# tmin <- rast(x = tmin, vals = values(t(tmin)))
+# tmax <- rast(x = tmax, vals = values(t(tmax)))
+# ppt <- rast(x = ppt, vals = values(t(ppt)))
+# plot(ppt[[1]])
 ```
 
 Luego, podrá guardar los rasters mensuales en un único archivo TIFF. Cada mes se guardará en las bandas de un raster, por lo que no es necesario guardar cada mes individualmente.
