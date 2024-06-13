@@ -1,3 +1,8 @@
+wallace 0.0.3
+=============
+- Changing pipe and adding call to terra functions and internal functions. Thanks to the contribution of [@francisvolh](https://github.com/francisvolh)
+- Updated node in pkgdown.
+
 wallace 0.0.2
 =============
 - Vignette in Spanish to be show in the "Modelamiento de Nichos Ecológicos" facebook group

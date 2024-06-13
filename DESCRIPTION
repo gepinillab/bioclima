@@ -1,7 +1,7 @@
 Package: bioclima
 Type: Package
 Title: Bioclimatic variables
-Version: 0.0.2
+Version: 0.0.3
 Author: person("Gonzalo E.", "Pinilla-Buitrago", email = "gpinillabuitrago@gradcenter.cuny.edu", role = c("aut", "cre"))
 Maintainer: Gonzalo E. Pinilla-Buitrago <gpinillabuitrago@gradcenter.cuny.edu>
 Description: Get bioclimatic variables using terra objects
