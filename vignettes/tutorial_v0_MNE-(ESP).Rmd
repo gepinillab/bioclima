@@ -61,10 +61,11 @@ Descargue variables climáticas mensuales de la base de datos [Terraclimate](htt
 
 ```{r}
 # Descargar datos de El Salvador (30 años de datos mensuales; 360 meses)
-env.data <- getTerraClim(AOI = aoi_get("El Salvador"),  # Área de interés
-                         varname =  c("tmin", "tmax", "ppt"),  # Variables a descargar
-                         startDate = "1990-01-01",  # Fecha límite inferior
-                         endDate = "2019-12-01")  # Fecha límite superior
+env.data <- climateR::getTerraClim(
+  AOI = AOI::aoi_get(country = "El Salvador"),  # Área de interés
+  varname =  c("tmin", "tmax", "ppt"),  # Variables a descargar
+  startDate = "1990-01-01",  # Fecha límite inferior
+  endDate = "2019-12-01")  # Fecha límite superior
 # Guardar temperatura mínima mensual
 tmin <- env.data$tmin
 # Guardar temperatura máxima mensual
@@ -84,10 +85,10 @@ plot(ppt[[1]])
 ```
 ```{r}
 # EJECUTAR ESTE CÓDIGO SI LOS VALORES DEL MAPA ESTÁN INVERTIDOS
-tmin <- rast(x = tmin, vals = values(t(tmin)))
-tmax <- rast(x = tmax, vals = values(t(tmax)))
-ppt <- rast(x = ppt, vals = values(t(ppt)))
-plot(ppt[[1]])
+# tmin <- rast(x = tmin, vals = values(t(tmin)))
+# tmax <- rast(x = tmax, vals = values(t(tmax)))
+# ppt <- rast(x = ppt, vals = values(t(ppt)))
+# plot(ppt[[1]])
 ```
 
 Luego, podrá guardar los rasters mensuales en un único archivo TIFF. Cada mes se guardará en las bandas de un raster, por lo que no es necesario guardar cada mes individualmente.
@@ -111,9 +112,9 @@ terra::writeRaster(ppt,
 Una vez que tenga las variables mensuales, es hora de crear las variables bioclimáticas basadas en los promedios mensuales (n = 12 meses). Primero, necesitamos crear promedios mensuales para cada variable, y luego usar la función clima() para obtener las 19 variables bioclimáticas.
 
 ```{r message=FALSE}
-tmin_avg <- tapp(tmin, index = rep(1:12, 30), fun = mean)
-tmax_avg <- tapp(tmax, index = rep(1:12, 30), fun = mean)
-ppt_avg <- tapp(ppt, index = rep(1:12, 30), fun = mean, na.rm = TRUE)
+tmin_avg <- terra::tapp(tmin, index = rep(1:12, 30), fun = mean)
+tmax_avg <- terra::tapp(tmax, index = rep(1:12, 30), fun = mean)
+ppt_avg <- terra::tapp(ppt, index = rep(1:12, 30), fun = mean, na.rm = TRUE)
 
 bios <- bioclima::clima(tmin = tmin_avg, tmax = tmax_avg, prcp = ppt_avg,
               bios = c(1:19), period = 3, circular = TRUE)
