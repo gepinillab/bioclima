@@ -52,7 +52,7 @@ ventana <- function(x, period, circular)  {
     sum_period <- terra::app(x[[m[j, ]]], sum, na.rm = TRUE)
     vent <- c(vent, sum_period)
   }
-  return(rast(vent))
+  return(terra::rast(vent))
 }
 
 #' @export
