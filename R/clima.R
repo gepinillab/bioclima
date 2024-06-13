@@ -22,7 +22,7 @@ clima <- function(bios, tmin = NULL, tmax = NULL, tavg = NULL, prcp = NULL,
   # resolution, and origin
   sameGeom <- class(purrr::reduce(list(tmin, tmax, tavg, prcp) |>
                                     purrr::discard(is.null),
-                                  testGeom))
+                                  bioclima::testGeom))
   if (sameGeom == "SpatRaster") {
     message("SpatRasters have same extent, number of rows and columns, ",
             "projection, resolution, and origin")
