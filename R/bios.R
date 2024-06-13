@@ -27,7 +27,7 @@ mica <- function(bio02, bio07) {
 # P4. Temperature Seasonality (standard deviation)
 #' @export
 muihica <- function(tavg) {
-  bio04 <- 100 * stdev(tavg, pop = FALSE, na.rm = TRUE)
+  bio04 <- 100 * terra::stdev(tavg, pop = FALSE, na.rm = TRUE)
   names(bio04) <- "bio04"
   return(bio04)
 }
@@ -59,7 +59,7 @@ cuhupcua <- function(bio05, bio06) {
 # P08. Mean Temperature of Wettest Period
 #' @export
 suhusa <- function(tmp, wet) {
-  bio08 <- selectRange(tmp, terra::which.max(wet))
+  bio08 <- terra::selectRange(tmp, terra::which.max(wet))
   names(bio08) <- "bio08"
   return(bio08)
 }
@@ -67,7 +67,7 @@ suhusa <- function(tmp, wet) {
 # P09. Mean Temperature of Driest Period
 #' @export
 aca <- function(tmp, wet) {
-  bio09 <- selectRange(tmp, terra::which.min(wet))
+  bio09 <- terra::selectRange(tmp, terra::which.min(wet))
   names(bio09) <- "bio09"
   return(bio09)
 }
@@ -140,7 +140,7 @@ quihicha_cuhupcua <- function(wet) {
 # P18. Precipitation of Warmest Period
 #' @export
 quihicha_suhusa <- function(tmp, wet) {
-  bio18 <- selectRange(wet, terra::which.max(tmp))
+  bio18 <- terra::selectRange(wet, terra::which.max(tmp))
   names(bio18) <- "bio18"
   return(bio18)
 }
@@ -148,7 +148,7 @@ quihicha_suhusa <- function(tmp, wet) {
 # P19. Precipitation of Coldest Period
 #' @export
 quihicha_aca <- function(tmp, wet) {
-  bio19 <- selectRange(wet, terra::which.min(tmp))
+  bio19 <- terra::selectRange(wet, terra::which.min(tmp))
   names(bio19) <- "bio19"
   return(bio19)
 }

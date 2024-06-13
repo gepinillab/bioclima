@@ -14,7 +14,7 @@ misqua <- function(tmin, tmax) {
 cv_cli <- function(prcp) {
   pr <- prcp + 1
   x <- terra::mean(abs(pr))
-  cv <- 100 * stdev(pr, pop = FALSE, na.rm = TRUE) / x
+  cv <- 100 * terra::stdev(pr, pop = FALSE, na.rm = TRUE) / x
   return(cv)
 }
 
@@ -52,7 +52,7 @@ ventana <- function(x, period, circular)  {
     sum_period <- terra::app(x[[m[j, ]]], sum, na.rm = TRUE)
     vent <- c(vent, sum_period)
   }
-  return(rast(vent))
+  return(terra::rast(vent))
 }
 
 #' @export

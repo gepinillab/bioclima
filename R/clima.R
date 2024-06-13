@@ -20,9 +20,9 @@ clima <- function(bios, tmin = NULL, tmax = NULL, tavg = NULL, prcp = NULL,
                   period = 3, circular = FALSE, checkNA = TRUE, stopNA = TRUE) {
   # Check for same extent, number of rows and columns, projection,
   # resolution, and origin
-  sameGeom <- class(purrr::reduce(list(tmin, tmax, tavg, prcp) %>%
+  sameGeom <- class(purrr::reduce(list(tmin, tmax, tavg, prcp) |>
                                     purrr::discard(is.null),
-                                  testGeom))
+                                  bioclima::testGeom))
   if (sameGeom == "SpatRaster") {
     message("SpatRasters have same extent, number of rows and columns, ",
             "projection, resolution, and origin")
@@ -83,10 +83,10 @@ clima <- function(bios, tmin = NULL, tmax = NULL, tavg = NULL, prcp = NULL,
     if (!exists("prcp_sum")) prcp_sum <-  NULL
     # if (!exists("srad_sum")) srad_sum <-  NULL
 
-    intra_na <- purrr::reduce(list(tmin_sum, tmax_sum, prcp_sum) %>%
-                                 purrr::discard(is.null), c) %>%
-      sum() %>%
-      terra::unique() %>%
+    intra_na <- purrr::reduce(list(tmin_sum, tmax_sum, prcp_sum) |>
+                                 purrr::discard(is.null), c) |>
+      sum() |>
+      terra::unique() |>
       unlist()
     # Delete values that shared pixel NA in all layers
     intra_na <- intra_na[intra_na != 0]
@@ -102,42 +102,42 @@ clima <- function(bios, tmin = NULL, tmax = NULL, tavg = NULL, prcp = NULL,
 
   # Bios that requires tavg
   if (any(c(1, 4, 8, 9, 10, 11, 18, 19) %in% bios)) {
-    if (is.null(tavg)) tavg <- misqua(tmin = tmin, tmax = tmax)
+    if (is.null(tavg)) tavg <- bioclima::misqua(tmin = tmin, tmax = tmax)
   }
 
   # Bio01
-  if (1 %in% bios) bio01 <- ata(tavg = tavg)
+  if (1 %in% bios) bio01 <- bioclima::ata(tavg = tavg)
   # Bio02
-  if (any(2:3 %in% bios)) bio02 <- bosa(tmin = tmin, tmax = tmax)
+  if (any(2:3 %in% bios)) bio02 <- bioclima::bosa(tmin = tmin, tmax = tmax)
   # Bio04
-  if (4 %in% bios) bio04 <- muihica(tavg = tavg)
+  if (4 %in% bios) bio04 <- bioclima::muihica(tavg = tavg)
   # Bio05
-  if (any(c(3, 5, 7) %in% bios)) bio05 <- hisca(tmax = tmax)
+  if (any(c(3, 5, 7) %in% bios)) bio05 <- bioclima::hisca(tmax = tmax)
   # Bio06
-  if (any(c(3, 6, 7) %in% bios)) bio06 <- ta(tmin = tmin)
+  if (any(c(3, 6, 7) %in% bios)) bio06 <- bioclima::ta(tmin = tmin)
   # Bio07
-  if (any(c(3, 7) %in% bios)) bio07 <- cuhupcua(bio05 = bio05, bio06 = bio06)
+  if (any(c(3, 7) %in% bios)) bio07 <- bioclima::cuhupcua(bio05 = bio05, bio06 = bio06)
   # Bio03
-  if (3 %in% bios) bio03 <- mica(bio02 = bio02, bio07 = bio07)
+  if (3 %in% bios) bio03 <- bioclima::mica(bio02 = bio02, bio07 = bio07)
   # Bio12
-  if (12 %in% bios) bio12 <- quihicha_bosa(prcp = prcp)
+  if (12 %in% bios) bio12 <- bioclima::quihicha_bosa(prcp = prcp)
   # Bio13
-  if (13 %in% bios) bio13 <- quihicha_mica(prcp = prcp)
+  if (13 %in% bios) bio13 <- bioclima::quihicha_mica(prcp = prcp)
   # Bio14
-  if (14 %in% bios) bio14 <- quihicha_muihica(prcp = prcp)
+  if (14 %in% bios) bio14 <- bioclima::quihicha_muihica(prcp = prcp)
   # Bio15
-  if (15 %in% bios) bio15 <- quihicha_hisca(prcp = prcp)
+  if (15 %in% bios) bio15 <- bioclima::quihicha_hisca(prcp = prcp)
   ### Precipitation periods
   if (any(c(8:9, 16:19) %in% bios)) {
-    iotuc <- ventana(prcp, period, circular)
+    iotuc <- bioclima::ventana(prcp, period, circular)
   }
   # Bio16
-  if (16 %in% bios) bio16 <- quihicha_ta(wet = iotuc)
+  if (16 %in% bios) bio16 <- bioclima::quihicha_ta(wet = iotuc)
   # Bio17
-  if (17 %in% bios) bio17 <- quihicha_cuhupcua(wet = iotuc)
+  if (17 %in% bios) bio17 <- bioclima::quihicha_cuhupcua(wet = iotuc)
   ### Mean temperature periods
   if (any(c(8:11, 18:19) %in% bios)) {
-    chituc <- ventana(tavg, period, circular) / period
+    chituc <- bioclima::ventana(tavg, period, circular) / period
   }
   # Window message
   if (any(c(8:11, 16:19) %in% bios)) {
@@ -149,20 +149,20 @@ clima <- function(bios, tmin = NULL, tmax = NULL, tavg = NULL, prcp = NULL,
     )
   }
   # Bio08
-  if (8 %in% bios) bio08 <- suhusa(tmp = chituc, wet = iotuc)
+  if (8 %in% bios) bio08 <- bioclima::suhusa(tmp = chituc, wet = iotuc)
   # Bio09
-  if (9 %in% bios) bio09 <- aca(tmp = chituc, wet = iotuc)
+  if (9 %in% bios) bio09 <- bioclima::aca(tmp = chituc, wet = iotuc)
   # Bio10
-  if (10 %in% bios) bio10 <- ubchihica(tmp = chituc)
+  if (10 %in% bios) bio10 <- bioclima::ubchihica(tmp = chituc)
   # Bio11
-  if (11 %in% bios) bio11 <- quihicha_ata(tmp = chituc)
+  if (11 %in% bios) bio11 <- bioclima::quihicha_ata(tmp = chituc)
   # Bio18
-  if (18 %in% bios) bio18 <- quihicha_suhusa(tmp = chituc, wet = iotuc)
+  if (18 %in% bios) bio18 <- bioclima::quihicha_suhusa(tmp = chituc, wet = iotuc)
   # Bio19
-  if (19 %in% bios) bio19 <- quihicha_aca(tmp = chituc, wet = iotuc)
+  if (19 %in% bios) bio19 <- bioclima::quihicha_aca(tmp = chituc, wet = iotuc)
 
   # Create a unique spatRaster
-  bios_rast <- rast(mget(paste0("bio", sprintf("%02d", bios))))
+  bios_rast <- terra::rast(mget(paste0("bio", sprintf("%02d", bios))))
   # bios_rast <- round(bios_rast, 0)
   return(bios_rast)
 }
