@@ -14,7 +14,7 @@ misqua <- function(tmin, tmax) {
 cv_cli <- function(prcp) {
   pr <- prcp + 1
   x <- terra::mean(abs(pr))
-  cv <- 100 * stdev(pr, pop = FALSE, na.rm = TRUE) / x
+  cv <- 100 * terra::stdev(pr, pop = FALSE, na.rm = TRUE) / x
   return(cv)
 }
 
