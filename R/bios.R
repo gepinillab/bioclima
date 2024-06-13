@@ -27,7 +27,7 @@ mica <- function(bio02, bio07) {
 # P4. Temperature Seasonality (standard deviation)
 #' @export
 muihica <- function(tavg) {
-  bio04 <- 100 * stdev(tavg, pop = FALSE, na.rm = TRUE)
+  bio04 <- 100 * terra::stdev(tavg, pop = FALSE, na.rm = TRUE)
   names(bio04) <- "bio04"
   return(bio04)
 }
