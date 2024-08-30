@@ -1,36 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://gepinillab.github.io/bioclima/404.html</loc>
-  </url>
-  <url>
-    <loc>https://gepinillab.github.io/bioclima/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://gepinillab.github.io/bioclima/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://gepinillab.github.io/bioclima/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://gepinillab.github.io/bioclima/articles/tutorial_v0_MNE-(ESP).html</loc>
-  </url>
-  <url>
-    <loc>https://gepinillab.github.io/bioclima/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://gepinillab.github.io/bioclima/index.html</loc>
-  </url>
-  <url>
-    <loc>https://gepinillab.github.io/bioclima/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://gepinillab.github.io/bioclima/reference/clima.html</loc>
-  </url>
-  <url>
-    <loc>https://gepinillab.github.io/bioclima/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://gepinillab.github.io/bioclima/reference/ventana.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://gepinillab.github.io/bioclima/404.html</loc></url>
+<url><loc>https://gepinillab.github.io/bioclima/LICENSE-text.html</loc></url>
+<url><loc>https://gepinillab.github.io/bioclima/LICENSE.html</loc></url>
+<url><loc>https://gepinillab.github.io/bioclima/articles/index.html</loc></url>
+<url><loc>https://gepinillab.github.io/bioclima/articles/tutorial_v0_MNE-(ESP).html</loc></url>
+<url><loc>https://gepinillab.github.io/bioclima/authors.html</loc></url>
+<url><loc>https://gepinillab.github.io/bioclima/index.html</loc></url>
+<url><loc>https://gepinillab.github.io/bioclima/news/index.html</loc></url>
+<url><loc>https://gepinillab.github.io/bioclima/reference/clima.html</loc></url>
+<url><loc>https://gepinillab.github.io/bioclima/reference/index.html</loc></url>
+<url><loc>https://gepinillab.github.io/bioclima/reference/ventana.html</loc></url>
 </urlset>
+
