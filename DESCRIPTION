@@ -1,7 +1,7 @@
 Package: bioclima
 Type: Package
 Title: Bioclimatic variables
-Version: 0.0.3
+Version: 0.0.4
 Author: person("Gonzalo E.", "Pinilla-Buitrago", email = "gpinillabuitrago@gradcenter.cuny.edu", role = c("aut", "cre"))
 Maintainer: Gonzalo E. Pinilla-Buitrago <gpinillabuitrago@gradcenter.cuny.edu>
 Description: Get bioclimatic variables using terra objects
@@ -10,6 +10,6 @@ Suggests: climateR, AOI, dismo, here
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.2
+RoxygenNote: 7.3.1
 Remotes: mikejohnson51/climateR, mikejohnson51/AOI
 URL: https://gepinillab.github.io/bioclima/

@@ -13,9 +13,6 @@ ventana(x, period, circular)
 
 \item{circular}{logical Include first month/weeks?}
 }
-\value{
-
-}
 \description{
 Windows
 }

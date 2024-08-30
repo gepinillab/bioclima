@@ -1,3 +1,8 @@
+wallace 0.0.4
+=============
+- Fix bug in mismatch_NA().
+- Some small changes in documenting the package.
+
 wallace 0.0.3
 =============
 - Changing pipe and adding call to terra functions and internal functions. Thanks to the contribution of [@francisvolh](https://github.com/francisvolh)

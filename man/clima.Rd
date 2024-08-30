@@ -36,9 +36,6 @@ calculated Bios 08, 09, 10, 11, 16, 17, 18, 19,}
 units. For example, if using mean monthly data and quarters, circular=TRUE will also
 calculate Nov-Dec-Jan and Dec-Jan-Feb.}
 }
-\value{
-
-}
 \description{
 Get several bioclimatic variables
 }

@@ -12,8 +12,6 @@
 #' @param circular TRUE/FALSE. Calculated periods that include first and last
 #' units. For example, if using mean monthly data and quarters, circular=TRUE will also
 #' calculate Nov-Dec-Jan and Dec-Jan-Feb.
-#'
-#' @return
 #' @export
 #'
 clima <- function(bios, tmin = NULL, tmax = NULL, tavg = NULL, prcp = NULL,

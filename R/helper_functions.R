@@ -23,8 +23,6 @@ cv_cli <- function(prcp) {
 #' @param x spatRaster
 #' @param period Length of period. Default is three. If you are using months. It will be a quarter.
 #' @param circular logical Include first month/weeks?
-#'
-#' @return
 #' @export
 ventana <- function(x, period, circular)  {
   lng <- terra::nlyr(x)
@@ -77,7 +75,7 @@ mismatch_NA <- function(layer) {
     miss_na <- v_unique[v_unique != 0 & v_unique != num_lyr]
     cells_na <- unlist(terra::cells(sum_lyr, miss_na))
     layer_na <- sapply(as.list(cells_na),
-                       function(x) {which(is.na(extract(prcp, x)))})
+                       function(x) {which(is.na(extract(layer, x)))})
     message(paste0("Unexpected NA value in '", substitute(layer), "' object",
                    " | Layer number: ", layer_na,
                    " | Cell ID: ", cells_na, "\n"))
