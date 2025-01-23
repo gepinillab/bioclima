@@ -135,9 +135,6 @@ bios_dismo <- dismo::biovars(prec = r.ppt,
 # Comparar salidas (la salida de dismo se convierte a spatRaster)
 plot(rast(bios_dismo) - bios)
 ```
-
-Aunque existen diferencias en algunas variables entre las dos salidas. Si detallan los valores de diferencia, muchos de ellos están en decimales en base 13 o 15 (e-13 o e-15). Dichas diferencias deben ser por el redondeo de números entre el código base de `terra` y `dismo`. La última afirmación es especulativa, pero sabiendo que la diferencia es mínima, podemos decir que los resultados son los mismos.
-
 #### Tiempo de ejecución
 
 ```{r message=FALSE}
