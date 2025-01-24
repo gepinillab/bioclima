@@ -104,44 +104,44 @@ clima <- function(bios, tmin = NULL, tmax = NULL, tavg = NULL, prcp = NULL,
       if (is.null(tmin) | is.null(tmax)) {
         stop("tavg cannot be calculated becuase tmin and/or tmax are NULL")
       } else {
-        tavg <- bioclima::misqua(tmin = tmin, tmax = tmax)
+        tavg <- bioclima::t_avg(tmin = tmin, tmax = tmax)
       }
     } 
   }
 
   # Bio01
-  if (1 %in% bios) bio01 <- bioclima::ata(tavg = tavg)
+  if (1 %in% bios) bio01 <- bioclima::bio_01(tavg = tavg)
   # Bio02
-  if (any(2:3 %in% bios)) bio02 <- bioclima::bosa(tmin = tmin, tmax = tmax)
+  if (any(2:3 %in% bios)) bio02 <- bioclima::bio_02(tmin = tmin, tmax = tmax)
   # Bio04
-  if (4 %in% bios) bio04 <- bioclima::muihica(tavg = tavg)
+  if (4 %in% bios) bio04 <- bioclima::bio_04(tavg = tavg)
   # Bio05
-  if (any(c(3, 5, 7) %in% bios)) bio05 <- bioclima::hisca(tmax = tmax)
+  if (any(c(3, 5, 7) %in% bios)) bio05 <- bioclima::bio_05(tmax = tmax)
   # Bio06
-  if (any(c(3, 6, 7) %in% bios)) bio06 <- bioclima::ta(tmin = tmin)
+  if (any(c(3, 6, 7) %in% bios)) bio06 <- bioclima::bio_06(tmin = tmin)
   # Bio07
-  if (any(c(3, 7) %in% bios)) bio07 <- bioclima::cuhupcua(bio05 = bio05, bio06 = bio06)
+  if (any(c(3, 7) %in% bios)) bio07 <- bioclima::bio_07(bio05 = bio05, bio06 = bio06)
   # Bio03
-  if (3 %in% bios) bio03 <- bioclima::mica(bio02 = bio02, bio07 = bio07)
+  if (3 %in% bios) bio03 <- bioclima::bio_03(bio02 = bio02, bio07 = bio07)
   # Bio12
-  if (12 %in% bios) bio12 <- bioclima::quihicha_bosa(prcp = prcp)
+  if (12 %in% bios) bio12 <- bioclima::bio_12(prcp = prcp)
   # Bio13
-  if (13 %in% bios) bio13 <- bioclima::quihicha_mica(prcp = prcp)
+  if (13 %in% bios) bio13 <- bioclima::bio_13(prcp = prcp)
   # Bio14
-  if (14 %in% bios) bio14 <- bioclima::quihicha_muihica(prcp = prcp)
+  if (14 %in% bios) bio14 <- bioclima::bio_14(prcp = prcp)
   # Bio15
-  if (15 %in% bios) bio15 <- bioclima::quihicha_hisca(prcp = prcp)
+  if (15 %in% bios) bio15 <- bioclima::bio_15(prcp = prcp)
   ### Precipitation periods
   if (any(c(8:9, 16:19) %in% bios)) {
-    iotuc <- bioclima::ventana(prcp, period, circular)
+    wet_period <- bioclima::get_window(prcp, period, circular)
   }
   # Bio16
-  if (16 %in% bios) bio16 <- bioclima::quihicha_ta(wet = iotuc)
+  if (16 %in% bios) bio16 <- bioclima::bio_16(wet = wet_period)
   # Bio17
-  if (17 %in% bios) bio17 <- bioclima::quihicha_cuhupcua(wet = iotuc)
+  if (17 %in% bios) bio17 <- bioclima::bio_17(wet = wet_period)
   ### Mean temperature periods
   if (any(c(8:11, 18:19) %in% bios)) {
-    chituc <- bioclima::ventana(tavg, period, circular) / period
+    tmp_period <- bioclima::get_window(tavg, period, circular) / period
   }
   # Window message
   if (any(c(8:11, 16:19) %in% bios)) {
@@ -153,20 +153,19 @@ clima <- function(bios, tmin = NULL, tmax = NULL, tavg = NULL, prcp = NULL,
     )
   }
   # Bio08
-  if (8 %in% bios) bio08 <- bioclima::suhusa(tmp = chituc, wet = iotuc)
+  if (8 %in% bios) bio08 <- bioclima::bio_08(tmp = tmp_period, wet = wet_period)
   # Bio09
-  if (9 %in% bios) bio09 <- bioclima::aca(tmp = chituc, wet = iotuc)
+  if (9 %in% bios) bio09 <- bioclima::bio_09(tmp = tmp_period, wet = wet_period)
   # Bio10
-  if (10 %in% bios) bio10 <- bioclima::ubchihica(tmp = chituc)
+  if (10 %in% bios) bio10 <- bioclima::bio_10(tmp = tmp_period)
   # Bio11
-  if (11 %in% bios) bio11 <- bioclima::quihicha_ata(tmp = chituc)
+  if (11 %in% bios) bio11 <- bioclima::bio_11(tmp = tmp_period)
   # Bio18
-  if (18 %in% bios) bio18 <- bioclima::quihicha_suhusa(tmp = chituc, wet = iotuc)
+  if (18 %in% bios) bio18 <- bioclima::bio_18(tmp = tmp_period, wet = wet_period)
   # Bio19
-  if (19 %in% bios) bio19 <- bioclima::quihicha_aca(tmp = chituc, wet = iotuc)
+  if (19 %in% bios) bio19 <- bioclima::bio_19(tmp = tmp_period, wet = wet_period)
 
   # Create a unique spatRaster
   bios_rast <- terra::rast(mget(paste0("bio", sprintf("%02d", bios))))
-  # bios_rast <- round(bios_rast, 0)
   return(bios_rast)
 }

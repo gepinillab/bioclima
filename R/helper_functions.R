@@ -3,10 +3,10 @@
 
 # Average Temperature
 #' @export
-misqua <- function(tmin, tmax) {
-  tavg <- (tmin + tmax) / 2
-  names(tavg) <- paste0("tavg_", 1:terra::nlyr(tavg))
-  return(tavg)
+t_avg <- function(tmin, tmax) {
+  misqua <- (tmin + tmax) / 2
+  names(misqua) <- paste0("tavg_", 1:terra::nlyr(tavg))
+  return(misqua)
 }
 
 # CV terra
@@ -24,7 +24,7 @@ cv_cli <- function(prcp) {
 #' @param period Length of period. Default is three. If you are using months. It will be a quarter.
 #' @param circular logical Include first month/weeks?
 #' @export
-ventana <- function(x, period, circular)  {
+get_window <- function(x, period, circular)  {
   lng <- terra::nlyr(x)
   if (circular == TRUE) {
     ind <- c(1:lng,  1:(period - 1))
