@@ -84,3 +84,62 @@ mismatch_NA <- function(layer) {
   return(list(logical = any(v_unique != 0 & v_unique != num_lyr),
               sum_lyr = sum_lyr))
 }
+
+#' @title Print Bioclimatic Variable Names
+#' @description
+#' This function prints the names of bioclimatic variables based on the specified indices.
+#' @param bios Numeric vector indicating the indices of bioclimatic variables to print.
+#' Default is 1:35, which prints all variable names.
+#' @return None. Prints the names of the selected bioclimatic variables to the console.
+#' @examples
+#' bionames()           # Print all bioclimatic variable names
+#' bionames(c(1, 5, 12)) # Print names for variables 1, 5, and 12
+#' @export
+bionames <- function(bios = 1:35) {
+  # Bioclimatic variable names
+  bioclim_vars <- c(
+    "bio01: Annual Mean Temperature",
+    "bio02: Mean Diurnal Range",
+    "bio03: Isothermality",
+    "bio04: Temperature Seasonality",
+    "bio05: Max Temperature of Warmest Period",
+    "bio06: Min Temperature of Coldest Period",
+    "bio07: Temperature Annual Range",
+    "bio08: Mean Temperature of Wettest Period",
+    "bio09: Mean Temperature of Driest Period",
+    "bio10: Mean Temperature of Warmest Period",
+    "bio11: Mean Temperature of Coldest Period",
+    "bio12: Annual Precipitation",
+    "bio13: Precipitation of Wettest Period",
+    "bio14: Precipitation of Driest Period",
+    "bio15: Precipitation Seasonality",
+    "bio16: Precipitation of Wettest Period",
+    "bio17: Precipitation of Driest Period",
+    "bio18: Precipitation of Warmest Period",
+    "bio19: Precipitation of Coldest Period",
+    "bio20: Annual Mean Radiation",
+    "bio21: Highest Period Radiation",
+    "bio22: Lowest Period Radiation",
+    "bio23: Radiation Seasonality",
+    "bio24: Radiation of Wettest Period",
+    "bio25: Radiation of Driest Period",
+    "bio26: Radiation of Warmest Period",
+    "bio27: Radiation of Coldest Period",
+    "bio28: Annual Mean Soil Moisture Content",
+    "bio29: Highest Period Soil Moisture Content",
+    "bio30: Lowest Period Soil Moisture Content",
+    "bio31: Soil Moisture Content Seasonality",
+    "bio32: Mean Soil Moisture Content of Most Moist Period",
+    "bio33: Mean Soil Moisture Content of Least Moist Period",
+    "bio34: Mean Soil Moisture Content of Warmest Period",
+    "bio35: Mean Soil Moisture Content of Coldest Period"
+  )
+  
+  # Validate input
+  if (!all(bios %in% 1:35)) {
+    stop("The 'bios' parameter must contain only numbers between 1 and 35.")
+  }
+  
+  # Print the selected variable names
+  cat(bioclim_vars[bios], sep = "\n")
+}

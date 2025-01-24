@@ -80,7 +80,7 @@ bio_10 <- function(tmp) {
   return(ubchihica)
 }
 
-# P11. Mean Temperature of Coldest Quarter
+# P11. Mean Temperature of Coldest Period
 #' @export
 bio_11 <- function(tmp) {
   quihicha_ata <- terra::app(tmp, min, na.rm = TRUE)
@@ -185,7 +185,7 @@ bio_23 <- function(srad) {
   return(gueta_mica)
 }
 
-# P24. Radiation of Wettest Quarter
+# P24. Radiation of Wettest Period
 #' @export
 bio_24 <- function(prad, wet) {
   gueta_muihica <- terra::selectRange(prad, terra::which.max(wet))
@@ -193,7 +193,7 @@ bio_24 <- function(prad, wet) {
   return(gueta_muihica)
 }
 
-# P25. Radiation of Driest Quarter
+# P25. Radiation of Driest Period
 #' @export
 bio_25 <- function(prad, wet) {
   gueta_hisca <- terra::selectRange(prad, terra::which.min(wet))
@@ -201,7 +201,7 @@ bio_25 <- function(prad, wet) {
   return(gueta_hisca)
 }
 
-# P26. Radiation of Warmest Quarter
+# P26. Radiation of Warmest Period
 #' @export
 bio_26 <- function(prad, tmp) {
   gueta_ta <- terra::selectRange(prad, terra::which.max(tmp))
@@ -209,7 +209,7 @@ bio_26 <- function(prad, tmp) {
   return(gueta_ta)
 }
 
-# P27. Radiation of Coldest Quarter
+# P27. Radiation of Coldest Period
 #' @export
 bio_27 <- function(prad, tmp) {
   gueta_cuhupcua <- terra::selectRange(prad, terra::which.min(tmp))
@@ -249,7 +249,7 @@ bio_31 <- function(soilm) {
   return(gueta_quihicha_ata)
 }
 
-# P32. Mean Soil Moisture of the Most Moist Quarter
+# P32. Mean Soil Moisture of the Most Moist Period
 #' @export
 bio_32 <- function(psoil) {
   gueta_quihicha_bosa <- terra::app(psoil, max, na.rm = TRUE)
@@ -257,7 +257,7 @@ bio_32 <- function(psoil) {
   return(gueta_quihicha_bosa)
 }
 
-# P33. Mean Soil Moisture of the Least Moist Quarter
+# P33. Mean Soil Moisture of the Least Moist Period
 #' @export
 bio_33 <- function(psoil) {
   gueta_quihicha_mica <- terra::app(psoil, min, na.rm = TRUE)
@@ -265,7 +265,7 @@ bio_33 <- function(psoil) {
   return(gueta_quihicha_mica)
 }
 
-# P34. Mean Soil Moisture of Warmest Quarter
+# P34. Mean Soil Moisture of Warmest Period
 #' @export
 bio_34 <- function(psoil, tmp) {
   gueta_quihicha_muihica <- terra::selectRange(psoil, terra::which.max(tmp))
@@ -273,7 +273,7 @@ bio_34 <- function(psoil, tmp) {
   return(gueta_quihicha_muihica)
 }
 
-# P35. Mean Soil Moisture of Coldest Quarter
+# P35. Mean Soil Moisture of Coldest Period
 #' @export
 bio_35 <- function(psoil, tmp) {
   gueta_quihicha_hisca <- terra::selectRange(psoil, terra::which.min(tmp))

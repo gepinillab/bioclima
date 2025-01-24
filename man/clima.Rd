@@ -35,13 +35,77 @@ tmax are provided}
 \item{soilm}{spatRaster with soil moisture}
 
 \item{period}{numeric. Length of period to summarize data (e.g., quarters,
-semesters). If using monthly data, a quarter (3-months) will be use to
-calculated Bios 08, 09, 10, 11, 16, 17, 18, 19, 24, 25, 26, 27, 32, 33, 34, 35.}
+semesters). If using monthly data, a quarter (3-months) will be used to
+calculate Bios 08, 09, 10, 11, 16, 17, 18, 19, 24, 25, 26, 27, 32, 33, 34, 35.}
 
-\item{circular}{TRUE/FALSE. Calculated periods that include first and last
-units. For example, if using mean monthly data and quarters, circular=TRUE will also
+\item{circular}{TRUE/FALSE. Calculate periods that include the first and last
+units. For example, if using mean monthly data and quarters, `circular=TRUE` will also
 calculate Nov-Dec-Jan and Dec-Jan-Feb.}
+
+\item{checkNA}{TRUE/FALSE. Check for unexpected NA values in the input data.}
+
+\item{stopNA}{TRUE/FALSE. Stop execution if unexpected NA values are detected.}
+}
+\value{
+An SpatRaster with 35 bioclimatic variables or a subset of them:
+\describe{
+  \item{bio01}{Annual Mean Temperature}
+  \item{bio02}{Mean Diurnal Range}
+  \item{bio03}{Isothermality}
+  \item{bio04}{Temperature Seasonality}
+  \item{bio05}{Max Temperature of Warmest Period}
+  \item{bio06}{Min Temperature of Coldest Period}
+  \item{bio07}{Temperature Annual Range}
+  \item{bio08}{Mean Temperature of Wettest Period}
+  \item{bio09}{Mean Temperature of Driest Period}
+  \item{bio10}{Mean Temperature of Warmest Period}
+  \item{bio11}{Mean Temperature of Coldest Period}
+  \item{bio12}{Annual Precipitation}
+  \item{bio13}{Precipitation of Wettest Period}
+  \item{bio14}{Precipitation of Driest Period}
+  \item{bio15}{Precipitation Seasonality}
+  \item{bio16}{Precipitation of Wettest Period}
+  \item{bio17}{Precipitation of Driest Period}
+  \item{bio18}{Precipitation of Warmest Period}
+  \item{bio19}{Precipitation of Coldest Period}
+  \item{bio20}{Annual Mean Radiation}
+  \item{bio21}{Highest Period Radiation}
+  \item{bio22}{Lowest Period Radiation}
+  \item{bio23}{Radiation Seasonality}
+  \item{bio24}{Radiation of Wettest Period}
+  \item{bio25}{Radiation of Driest Period}
+  \item{bio26}{Radiation of Warmest Period}
+  \item{bio27}{Radiation of Coldest Period}
+  \item{bio28*}{Annual Mean Soil Moisture Content}
+  \item{bio29*}{Highest Period Soil Moisture Content}
+  \item{bio30*}{Lowest Period Soil Moisture Content}
+  \item{bio31*}{Soil Moisture Content Seasonality}
+  \item{bio32*}{Mean Soil Moisture Content of Highest Period}
+  \item{bio33*}{Mean Soil Moisture Content of Lowest Period}
+  \item{bio34*}{Mean Soil Moisture Content of Warmest Period}
+  \item{bio35*}{Mean Soil Moisture Content of Coldest Period}
+}
 }
 \description{
-Get several bioclimatic variables
+The clima function generates bioclimatic variables commonly used in ecological 
+and environmental analyses. This function builds upon the biovars function from 
+the dismo package and adheres to the methodologies outlined in the ANUCLIM 6.1 manual 
+and O’Donnell & Ignizio (2012). It calculates a comprehensive set of 35 
+bioclimatic variables based on input rasters for minimum temperature, 
+maximum temperature, average temperature, precipitation, solar radiation, 
+and soil moisture. Users can specify which bioclimatic variables to compute 
+using the bios parameter. The function supports customizable temporal 
+aggregation (e.g., quarters or semesters) and includes options for circular 
+period calculations. Input consistency is validated to ensure matching 
+extents, resolutions, and NA handling, making it robust for large-scale 
+spatial applications. Outputs are returned as a SpatRaster object 
+containing the selected bioclimatic layers, ready for downstream analysis.
+}
+\note{
+*The original soil moisture variables proposed in the ANUCLIM manual are based on the Moisture Index (MI). However, this function allows users to calculate soil moisture-based bioclimatic variables using other units of soil moisture as inputs, offering greater flexibility in input data usage.
+}
+\references{
+O’Donnell, M. S., & Ignizio, D. A. (2012). Bioclimatic predictors for supporting ecological applications in the conterminous United States (Vol. 691).  
+ANUCLIM 6.1 User Guide. Centre for Resource and Environmental Studies, The Australian National University.  
+Hijmans, R. J., Phillips, S., Leathwick, J., & Elith, J. (2017). `dismo`: Species Distribution Modeling. R package version 1.1-4.
 }
