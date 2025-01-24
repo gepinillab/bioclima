@@ -10,6 +10,8 @@ clima(
   tmax = NULL,
   tavg = NULL,
   prcp = NULL,
+  srad = NULL,
+  soilm = NULL,
   period = 3,
   circular = FALSE,
   checkNA = TRUE,
@@ -28,9 +30,13 @@ tmax are provided}
 
 \item{prcp}{spatRaster with precipitation}
 
+\item{srad}{spatRaster with solar radiation}
+
+\item{soilm}{spatRaster with soil moisture}
+
 \item{period}{numeric. Length of period to summarize data (e.g., quarters,
 semesters). If using monthly data, a quarter (3-months) will be use to
-calculated Bios 08, 09, 10, 11, 16, 17, 18, 19,}
+calculated Bios 08, 09, 10, 11, 16, 17, 18, 19, 24, 25, 26, 27, 32, 33, 34, 35.}
 
 \item{circular}{TRUE/FALSE. Calculated periods that include first and last
 units. For example, if using mean monthly data and quarters, circular=TRUE will also

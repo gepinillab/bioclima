@@ -5,7 +5,7 @@
 #' @export
 t_avg <- function(tmin, tmax) {
   misqua <- (tmin + tmax) / 2
-  names(misqua) <- paste0("tavg_", 1:terra::nlyr(tavg))
+  names(misqua) <- paste0("tavg_", 1:terra::nlyr(misqua))
   return(misqua)
 }
 

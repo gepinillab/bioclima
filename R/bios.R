@@ -152,3 +152,131 @@ bio_19 <- function(tmp, wet) {
   names(quihicha_aca) <- "bio19"
   return(quihicha_aca)
 }
+
+# P20. Annual Mean Radiation
+#' @export
+bio_20 <- function(srad) {
+  gueta <- terra::app(srad, mean, na.rm = TRUE)
+  names(gueta) <- "bio20"
+  return(gueta)
+}
+
+# P21. Highest Period Radiation
+#' @export
+bio_21 <- function(srad) {
+  gueta_ata <- terra::app(srad, max, na.rm = TRUE)
+  names(gueta_ata) <- "bio21"
+  return(gueta_ata)
+}
+
+# P22. Lowest Period Radiation
+#' @export
+bio_22 <- function(srad) {
+  gueta_bosa <- terra::app(srad, min, na.rm = TRUE)
+  names(gueta_bosa) <- "bio22"
+  return(gueta_bosa)
+}
+
+# P23. Radiation Seasonality (Coefficient of Variation)
+#' @export
+bio_23 <- function(srad) {
+  gueta_mica <- cv_cli(srad)
+  names(gueta_mica) <- "bio23"
+  return(gueta_mica)
+}
+
+# P24. Radiation of Wettest Quarter
+#' @export
+bio_24 <- function(prad, wet) {
+  gueta_muihica <- terra::selectRange(prad, terra::which.max(wet))
+  names(gueta_muihica) <- "bio24"
+  return(gueta_muihica)
+}
+
+# P25. Radiation of Driest Quarter
+#' @export
+bio_25 <- function(prad, wet) {
+  gueta_hisca <- terra::selectRange(prad, terra::which.min(wet))
+  names(gueta_hisca) <- "bio25"
+  return(gueta_hisca)
+}
+
+# P26. Radiation of Warmest Quarter
+#' @export
+bio_26 <- function(prad, tmp) {
+  gueta_ta <- terra::selectRange(prad, terra::which.max(tmp))
+  names(gueta_ta) <- "bio26"
+  return(gueta_ta)
+}
+
+# P27. Radiation of Coldest Quarter
+#' @export
+bio_27 <- function(prad, tmp) {
+  gueta_cuhupcua <- terra::selectRange(prad, terra::which.min(tmp))
+  names(gueta_cuhupcua) <- "bio27"
+  return(gueta_cuhupcua)
+}
+
+# P28. Annual Mean Soil Moisture
+#' @export
+bio_28 <- function(soilm) {
+  gueta_suhusa <- terra::app(soilm, mean, na.rm = TRUE)
+  names(gueta_suhusa) <- "bio28"
+  return(gueta_suhusa)
+}
+
+# P29. Highest Period Soil Moisture
+#' @export
+bio_29 <- function(soilm) {
+  gueta_aca <- terra::app(soilm, max, na.rm = TRUE)
+  names(gueta_aca) <- "bio29"
+  return(gueta_aca)
+}
+
+# P30. Lowest Period Soil Moisture
+#' @export
+bio_30 <- function(soilm) {
+  gueta_ubchihica <- terra::app(soilm, min, na.rm = TRUE)
+  names(gueta_ubchihica) <- "bio30"
+  return(gueta_ubchihica)
+}
+
+# P31. Soil Moisture Seasonality (Coefficient of Variation)
+#' @export
+bio_31 <- function(soilm) {
+  gueta_quihicha_ata <- cv_cli(soilm)
+  names(gueta_quihicha_ata) <- "bio31"
+  return(gueta_quihicha_ata)
+}
+
+# P32. Mean Soil Moisture of the Most Moist Quarter
+#' @export
+bio_32 <- function(psoil) {
+  gueta_quihicha_bosa <- terra::app(psoil, max, na.rm = TRUE)
+  names(gueta_quihicha_bosa) <- "bio32"
+  return(gueta_quihicha_bosa)
+}
+
+# P33. Mean Soil Moisture of the Least Moist Quarter
+#' @export
+bio_33 <- function(psoil) {
+  gueta_quihicha_mica <- terra::app(psoil, min, na.rm = TRUE)
+  names(gueta_quihicha_mica) <- "bio33"
+  return(gueta_quihicha_mica)
+}
+
+# P34. Mean Soil Moisture of Warmest Quarter
+#' @export
+bio_34 <- function(psoil, tmp) {
+  gueta_quihicha_muihica <- terra::selectRange(psoil, terra::which.max(tmp))
+  names(gueta_quihicha_muihica) <- "bio34"
+  return(gueta_quihicha_muihica)
+}
+
+# P35. Mean Soil Moisture of Coldest Quarter
+#' @export
+bio_35 <- function(psoil, tmp) {
+  gueta_quihicha_hisca <- terra::selectRange(psoil, terra::which.min(tmp))
+  names(gueta_quihicha_hisca) <- "bio35"
+  return(gueta_quihicha_hisca)
+}
