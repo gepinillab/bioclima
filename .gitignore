@@ -2,5 +2,6 @@
 .Rhistory
 .RData
 .Ruserdata
+*bioclima.Rproj
 docs
 data
