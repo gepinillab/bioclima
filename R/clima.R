@@ -30,39 +30,58 @@
 #' calculate Nov-Dec-Jan and Dec-Jan-Feb.
 #' @param checkNA TRUE/FALSE. Check for unexpected NA values in the input data.
 #' @param stopNA TRUE/FALSE. Stop execution if unexpected NA values are detected.
+#' @param ... Additional arguments to define spatRasters that define a static 
+#' period or unit index for variables calculation could be useful to keep same 
+#' index along a time series or define a static season of interest, including:
+#'   \describe{
+#'     \item{warmest_period}{Description of param1 (default: NULL)}
+#'     \item{coldest_period}{Description of param1 (default: NULL)}
+#'     \item{wettest_period}{Description of param1 (default: NULL)}
+#'     \item{driest_period}{Description of param1 (default: NULL)}
+#'     \item{high_soil_period}{Description of param1 (default: NULL)}
+#'     \item{low_soil_period}{Description of param1 (default: NULL)}
+#'     \item{warmest_unit}{Description of param1 (default: NULL)}
+#'     \item{coldest_unit}{Description of param1 (default: NULL)}
+#'     \item{wettest_unit}{Description of param1 (default: NULL)}
+#'     \item{driest_unit}{Description of param1 (default: NULL)}
+#'     \item{high_rad_unit}{Description of param1 (default: NULL)}
+#'     \item{low_rad_unit}{Description of param1 (default: NULL)}
+#'     \item{high_soil_unit}{Description of param1 (default: NULL)}
+#'     \item{low_soil_unit}{Description of param1 (default: NULL)}
+#'   }
 #' 
 #' @return An SpatRaster with 35 bioclimatic variables or a subset of them:
 #' \describe{
-#'   \item{bio01}{Annual Mean Temperature}
+#'   \item{bio01}{Mean Temperature of Units}
 #'   \item{bio02}{Mean Diurnal Range}
 #'   \item{bio03}{Isothermality}
 #'   \item{bio04}{Temperature Seasonality}
-#'   \item{bio05}{Max Temperature of Warmest Period}
-#'   \item{bio06}{Min Temperature of Coldest Period}
-#'   \item{bio07}{Temperature Annual Range}
+#'   \item{bio05}{Max Temperature of Warmest Unit}
+#'   \item{bio06}{Min Temperature of Coldest Unit}
+#'   \item{bio07}{Temperature Range of Units}
 #'   \item{bio08}{Mean Temperature of Wettest Period}
 #'   \item{bio09}{Mean Temperature of Driest Period}
 #'   \item{bio10}{Mean Temperature of Warmest Period}
 #'   \item{bio11}{Mean Temperature of Coldest Period}
-#'   \item{bio12}{Annual Precipitation}
-#'   \item{bio13}{Precipitation of Wettest Period}
-#'   \item{bio14}{Precipitation of Driest Period}
+#'   \item{bio12}{Precipitation Sum}
+#'   \item{bio13}{Precipitation of Wettest Unit}
+#'   \item{bio14}{Precipitation of Driest Unit}
 #'   \item{bio15}{Precipitation Seasonality}
 #'   \item{bio16}{Precipitation of Wettest Period}
 #'   \item{bio17}{Precipitation of Driest Period}
 #'   \item{bio18}{Precipitation of Warmest Period}
 #'   \item{bio19}{Precipitation of Coldest Period}
-#'   \item{bio20}{Annual Mean Radiation}
-#'   \item{bio21}{Highest Period Radiation}
-#'   \item{bio22}{Lowest Period Radiation}
+#'   \item{bio20}{Mean Radiation of Units}
+#'   \item{bio21}{Highest Radiation Unit}
+#'   \item{bio22}{Lowest Radiation Unit}
 #'   \item{bio23}{Radiation Seasonality}
 #'   \item{bio24}{Radiation of Wettest Period}
 #'   \item{bio25}{Radiation of Driest Period}
 #'   \item{bio26}{Radiation of Warmest Period}
 #'   \item{bio27}{Radiation of Coldest Period}
-#'   \item{bio28*}{Annual Mean Soil Moisture Content}
-#'   \item{bio29*}{Highest Period Soil Moisture Content}
-#'   \item{bio30*}{Lowest Period Soil Moisture Content}
+#'   \item{bio28*}{Mean Soil Moisture Content Of Units}
+#'   \item{bio29*}{Highest Soil Moisture Content Unit}
+#'   \item{bio30*}{Lowest Soil Moisture Content Unit}
 #'   \item{bio31*}{Soil Moisture Content Seasonality}
 #'   \item{bio32*}{Mean Soil Moisture Content of Most Moist Period}
 #'   \item{bio33*}{Mean Soil Moisture Content of Least Moist Period}
@@ -85,7 +104,7 @@
 #'
 clima <- function(bios, tmin = NULL, tmax = NULL, tavg = NULL, prcp = NULL,
                   srad = NULL, soilm = NULL, period = 3, circular = FALSE, 
-                  checkNA = TRUE, stopNA = TRUE) {
+                  checkNA = TRUE, stopNA = TRUE, ...) {
   # Check for same extent, number of rows and columns, projection,
   # resolution, and origin
   sameGeom <- class(purrr::reduce(list(tmin, tmax, tavg, prcp, srad, soilm) |>
@@ -210,111 +229,129 @@ clima <- function(bios, tmin = NULL, tmax = NULL, tavg = NULL, prcp = NULL,
       if (is.null(tmin) | is.null(tmax)) {
         stop("tavg cannot be calculated becuase tmin and/or tmax are NULL")
       } else {
-        tavg <- bioclima::t_avg(tmin = tmin, tmax = tmax)
+        tavg <- bioclima::t_avg(tmin, tmax)
       }
     } 
   }
 
   ## ONLY TEMPERATURE
   # Bio01
-  if (1 %in% bios) bio01 <- bioclima::bio_01(tavg = tavg)
+  if (1 %in% bios) bio01 <- bioclima::bio_01(tavg)
   # Bio02
-  if (any(2:3 %in% bios)) bio02 <- bioclima::bio_02(tmin = tmin, tmax = tmax)
+  if (any(2:3 %in% bios)) bio02 <- bioclima::bio_02(tmin, tmax)
   # Bio04
-  if (4 %in% bios) bio04 <- bioclima::bio_04(tavg = tavg)
+  if (4 %in% bios) bio04 <- bioclima::bio_04(tavg)
   # Bio05
-  if (any(c(3, 5, 7) %in% bios)) bio05 <- bioclima::bio_05(tmax = tmax)
+  if (any(c(3, 5, 7) %in% bios)) bio05 <- bioclima::bio_05(tmax, ...)
   # Bio06
-  if (any(c(3, 6, 7) %in% bios)) bio06 <- bioclima::bio_06(tmin = tmin)
+  if (any(c(3, 6, 7) %in% bios)) bio06 <- bioclima::bio_06(tmin, ...)
   # Bio07
-  if (any(c(3, 7) %in% bios)) bio07 <- bioclima::bio_07(bio05 = bio05, bio06 = bio06)
+  if (any(c(3, 7) %in% bios)) bio07 <- bioclima::bio_07(bio05, bio06)
   # Bio03
-  if (3 %in% bios) bio03 <- bioclima::bio_03(bio02 = bio02, bio07 = bio07)
+  if (3 %in% bios) bio03 <- bioclima::bio_03(bio02, bio07)
   
   ## ONLY PRECIPITATION
   # Bio12
-  if (12 %in% bios) bio12 <- bioclima::bio_12(prcp = prcp)
+  if (12 %in% bios) bio12 <- bioclima::bio_12(prcp)
   # Bio13
-  if (13 %in% bios) bio13 <- bioclima::bio_13(prcp = prcp)
+  if (13 %in% bios) bio13 <- bioclima::bio_13(prcp, ...)
   # Bio14
-  if (14 %in% bios) bio14 <- bioclima::bio_14(prcp = prcp)
+  if (14 %in% bios) bio14 <- bioclima::bio_14(prcp, ...)
   # Bio15
-  if (15 %in% bios) bio15 <- bioclima::bio_15(prcp = prcp)
+  if (15 %in% bios) bio15 <- bioclima::bio_15(prcp)
   
   
   ## ONLY PRECIPITATION PERIOD
   if (any(c(8:9, 16:19, 24:25) %in% bios)) {
-    wet_period <- bioclima::get_window(prcp, period, circular)
+    wet <- bioclima::get_window(prcp, period, circular)
+    if (any(c(8, 16, 24) %in% bios) & !exists("wettest_period")) {
+      wettest_period <- terra::which.max(wet)
+    }
+    if (any(c(9, 17, 24) %in% bios) & !exists("driest_period")) {
+      driest_period <- terra::which.min(wet)
+    }
   }
   # Bio16
-  if (16 %in% bios) bio16 <- bioclima::bio_16(wet = wet_period)
+  if (16 %in% bios) bio16 <- bioclima::bio_16(wet, wettest_period)
   # Bio17
-  if (17 %in% bios) bio17 <- bioclima::bio_17(wet = wet_period)
+  if (17 %in% bios) bio17 <- bioclima::bio_17(wet, driest_period)
   
   ### ONLY TEMPERATURE PERIOD
   if (any(c(8:11, 18:19, 26:27, 34:35) %in% bios)) {
-    tmp_period <- bioclima::get_window(tavg, period, circular) / period
+    tmp <- bioclima::get_window(tavg, period, circular) / period
+    if (any(c(10, 18, 26, 34) %in% bios) & !exists("warmest_period")) {
+      warmest_period <- terra::which.max(tmp)
+    }
+    if (any(c(11, 19, 27, 35) %in% bios) & !exists("coldest_period")) {
+      coldest_period <- terra::which.min(tmp)
+    }
   }
   # Bio10
-  if (10 %in% bios) bio10 <- bioclima::bio_10(tmp = tmp_period)
+  if (10 %in% bios) bio10 <- bioclima::bio_10(tmp, warmest_period)
   # Bio11
-  if (11 %in% bios) bio11 <- bioclima::bio_11(tmp = tmp_period)
+  if (11 %in% bios) bio11 <- bioclima::bio_11(tmp, coldest_period)
   
   ## ONLY SOLAR RADIATION
   # Bio20
-  if (20 %in% bios) bio20 <- bioclima::bio_20(srad = srad)
+  if (20 %in% bios) bio20 <- bioclima::bio_20(srad)
   # Bio21
-  if (21 %in% bios) bio21 <- bioclima::bio_21(srad = srad)
+  if (21 %in% bios) bio21 <- bioclima::bio_21(srad, ...)
   # Bio22
-  if (22 %in% bios) bio22 <- bioclima::bio_22(srad = srad)
+  if (22 %in% bios) bio22 <- bioclima::bio_22(srad, ...)
   # Bio23
-  if (23 %in% bios) bio23 <- bioclima::bio_23(srad = srad)
+  if (23 %in% bios) bio23 <- bioclima::bio_23(srad)
   
   ### GET SOLAR RADIATION PERIOD
   if (any(c(24:27) %in% bios)) {
-    srad_period <- bioclima::get_window(srad, period, circular) / period
+    prad <- bioclima::get_window(srad, period, circular) / period
   }
   
   ## ONLY SOIL MOISTURE
   # Bio28
-  if (28 %in% bios) bio28 <- bioclima::bio_28(soilm = soilm)
+  if (28 %in% bios) bio28 <- bioclima::bio_28(soilm)
   # Bio29
-  if (29 %in% bios) bio29 <- bioclima::bio_29(soilm = soilm)
+  if (29 %in% bios) bio29 <- bioclima::bio_29(soilm, ...)
   # Bio30
-  if (30 %in% bios) bio30 <- bioclima::bio_30(soilm = soilm)
+  if (30 %in% bios) bio30 <- bioclima::bio_30(soilm, ...)
   # Bio31
-  if (31 %in% bios) bio31 <- bioclima::bio_31(soilm = soilm)
+  if (31 %in% bios) bio31 <- bioclima::bio_31(soilm)
   
   ### ONLY SOIL MOISTURE PERIOD
   if (any(c(32:35) %in% bios)) {
-    soilm_period <- bioclima::get_window(soilm, period, circular) / period
+    psoil <- bioclima::get_window(soilm, period, circular) / period
+    if ((32 %in% bios) & !exists("high_soil_period")) {
+      high_soil_period <- terra::which.max(psoil)
+    }
+    if ((33 %in% bios) & !exists("low_soil_period")) {
+      low_soil_period <- terra::which.min(psoil)
+    }
   }
   # Bio32
-  if (32 %in% bios) bio32 <- bioclima::bio_32(psoil = soilm_period)
+  if (32 %in% bios) bio32 <- bioclima::bio_32(psoil, high_soil_period)
   # Bio33
-  if (33 %in% bios) bio33 <- bioclima::bio_33(psoil = soilm_period)
+  if (33 %in% bios) bio33 <- bioclima::bio_33(psoil, low_soil_period)
   
   #### COMBINED PERIODS
   # Bio08
-  if (8 %in% bios) bio08 <- bioclima::bio_08(tmp = tmp_period, wet = wet_period)
+  if (8 %in% bios) bio08 <- bioclima::bio_08(tmp, wettest_period)
   # Bio09
-  if (9 %in% bios) bio09 <- bioclima::bio_09(tmp = tmp_period, wet = wet_period)
+  if (9 %in% bios) bio09 <- bioclima::bio_09(tmp, driest_period)
   # Bio18
-  if (18 %in% bios) bio18 <- bioclima::bio_18(tmp = tmp_period, wet = wet_period)
+  if (18 %in% bios) bio18 <- bioclima::bio_18(tmp, warmest_period)
   # Bio19
-  if (19 %in% bios) bio19 <- bioclima::bio_19(tmp = tmp_period, wet = wet_period)
+  if (19 %in% bios) bio19 <- bioclima::bio_19(tmp, coldest_period)
   # Bio24
-  if (24 %in% bios) bio24 <- bioclima::bio_24(prad = srad_period, wet = wet_period)
+  if (24 %in% bios) bio24 <- bioclima::bio_24(prad, wettest_period)
   # Bio25
-  if (25 %in% bios) bio25 <- bioclima::bio_25(prad = srad_period, wet = wet_period)
+  if (25 %in% bios) bio25 <- bioclima::bio_25(prad, driest_period)
   # Bio26
-  if (26 %in% bios) bio26 <- bioclima::bio_26(prad = srad_period, tmp = tmp_period)
+  if (26 %in% bios) bio26 <- bioclima::bio_26(prad, warmest_period)
   # Bio27
-  if (27 %in% bios) bio27 <- bioclima::bio_27(prad = srad_period, tmp = tmp_period)
+  if (27 %in% bios) bio27 <- bioclima::bio_27(prad, coldest_period)
   # Bio34
-  if (34 %in% bios) bio34 <- bioclima::bio_34(psoil = soilm_period, tmp = tmp_period)
+  if (34 %in% bios) bio34 <- bioclima::bio_34(psoil, warmest_period)
   # Bio35
-  if (35 %in% bios) bio35 <- bioclima::bio_35(psoil = soilm_period, tmp = tmp_period)
+  if (35 %in% bios) bio35 <- bioclima::bio_35(psoil, coldest_period)
   
   # Window message
   if (any(c(8:11, 16:19, 24:27, 32:35) %in% bios)) {

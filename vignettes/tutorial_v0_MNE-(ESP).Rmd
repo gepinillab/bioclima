@@ -63,7 +63,7 @@ Descargue variables climáticas mensuales de la base de datos [Terraclimate](htt
 # Descargar datos de El Salvador (30 años de datos mensuales; 360 meses)
 env.data <- climateR::getTerraClim(
   AOI = AOI::aoi_get(country = "El Salvador"),  # Área de interés
-  varname =  c("tmin", "tmax", "ppt"),  # Variables a descargar
+  varname =  c("tmin", "tmax", "ppt", "soil", "srad"),  # Variables a descargar
   startDate = "1990-01-01",  # Fecha límite inferior
   endDate = "2019-12-01")  # Fecha límite superior
 # Guardar temperatura mínima mensual
@@ -72,6 +72,10 @@ tmin <- env.data$tmin
 tmax <- env.data$tmax
 # Guardar precipitación mensual
 ppt <- env.data$ppt
+# Guardar radiación solar
+srad <- env.data$srad
+# Guardar humedad del suelo
+soilm <- env.data$soil
 # Checar estructura de spatRaster (incluye 360 meses cada uno)
 tmax
 ```
@@ -88,6 +92,8 @@ plot(ppt[[1]])
 # tmin <- rast(x = tmin, vals = values(t(tmin)))
 # tmax <- rast(x = tmax, vals = values(t(tmax)))
 # ppt <- rast(x = ppt, vals = values(t(ppt)))
+# srad <- rast(x = srad, vals = values(t(srad)))
+# soil <- rast(x = soil, vals = values(t(soil)))
 # plot(ppt[[1]])
 ```
 
@@ -106,18 +112,27 @@ terra::writeRaster(tmax,
 terra::writeRaster(ppt,
                    here("data", "ppt_1990-01-a-2019-12.tif"),
                    overwrite = TRUE)
+terra::writeRaster(srad,
+                   here("data", "srad_1990-01-a-2019-12.tif"),
+                   overwrite = TRUE)
+terra::writeRaster(soilm,
+                   here("data", "soilm_1990-01-a-2019-12.tif"),
+                   overwrite = TRUE)
 ```
 
 ## Crear variables bioclimáticas
 Una vez que tenga las variables mensuales, es hora de crear las variables bioclimáticas basadas en los promedios mensuales (n = 12 meses). Primero, necesitamos crear promedios mensuales para cada variable, y luego usar la función clima() para obtener las 19 variables bioclimáticas.
 
 ```{r message=FALSE}
-tmin_avg <- terra::tapp(tmin, index = rep(1:12, 30), fun = mean)
-tmax_avg <- terra::tapp(tmax, index = rep(1:12, 30), fun = mean)
+tmin_avg <- terra::tapp(tmin, index = rep(1:12, 30), fun = mean, na.rm = TRUE)
+tmax_avg <- terra::tapp(tmax, index = rep(1:12, 30), fun = mean, na.rm = TRUE)
 ppt_avg <- terra::tapp(ppt, index = rep(1:12, 30), fun = mean, na.rm = TRUE)
+srad_avg <- terra::tapp(srad, index = rep(1:12, 30), fun = mean, na.rm = TRUE)
+soilm_avg <- terra::tapp(soilm, index = rep(1:12, 30), fun = mean, na.rm = TRUE)
 
 bios <- bioclima::clima(tmin = tmin_avg, tmax = tmax_avg, prcp = ppt_avg,
-              bios = c(1:19), period = 3, circular = TRUE)
+                        srad = srad_avg, soilm = soilm_avg,
+              bios = 1:35, period = 3, circular = TRUE)
 plot(bios)
 ```
 
@@ -133,7 +148,7 @@ bios_dismo <- dismo::biovars(prec = r.ppt,
                              tmax = r.tmax,
                              tmin = r.tmin)
 # Comparar salidas (la salida de dismo se convierte a spatRaster)
-plot(rast(bios_dismo) - bios)
+plot(rast(bios_dismo) - bios[[1:19]])
 ```
 #### Tiempo de ejecución
 

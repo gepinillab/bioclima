@@ -15,7 +15,8 @@ clima(
   period = 3,
   circular = FALSE,
   checkNA = TRUE,
-  stopNA = TRUE
+  stopNA = TRUE,
+  ...
 )
 }
 \arguments{
@@ -45,43 +46,63 @@ calculate Nov-Dec-Jan and Dec-Jan-Feb.}
 \item{checkNA}{TRUE/FALSE. Check for unexpected NA values in the input data.}
 
 \item{stopNA}{TRUE/FALSE. Stop execution if unexpected NA values are detected.}
+
+\item{...}{Additional arguments to define spatRasters that define a static 
+period or unit index for variables calculation could be useful to keep same 
+index along a time series or define a static season of interest, including:
+  \describe{
+    \item{warmest_period}{Description of param1 (default: NULL)}
+    \item{coldest_period}{Description of param1 (default: NULL)}
+    \item{wettest_period}{Description of param1 (default: NULL)}
+    \item{driest_period}{Description of param1 (default: NULL)}
+    \item{high_soil_period}{Description of param1 (default: NULL)}
+    \item{low_soil_period}{Description of param1 (default: NULL)}
+    \item{warmest_unit}{Description of param1 (default: NULL)}
+    \item{coldest_unit}{Description of param1 (default: NULL)}
+    \item{wettest_unit}{Description of param1 (default: NULL)}
+    \item{driest_unit}{Description of param1 (default: NULL)}
+    \item{high_rad_unit}{Description of param1 (default: NULL)}
+    \item{low_rad_unit}{Description of param1 (default: NULL)}
+    \item{high_soil_unit}{Description of param1 (default: NULL)}
+    \item{low_soil_unit}{Description of param1 (default: NULL)}
+  }}
 }
 \value{
 An SpatRaster with 35 bioclimatic variables or a subset of them:
 \describe{
-  \item{bio01}{Annual Mean Temperature}
+  \item{bio01}{Mean Temperature of Units}
   \item{bio02}{Mean Diurnal Range}
   \item{bio03}{Isothermality}
   \item{bio04}{Temperature Seasonality}
-  \item{bio05}{Max Temperature of Warmest Period}
-  \item{bio06}{Min Temperature of Coldest Period}
-  \item{bio07}{Temperature Annual Range}
+  \item{bio05}{Max Temperature of Warmest Unit}
+  \item{bio06}{Min Temperature of Coldest Unit}
+  \item{bio07}{Temperature Range of Units}
   \item{bio08}{Mean Temperature of Wettest Period}
   \item{bio09}{Mean Temperature of Driest Period}
   \item{bio10}{Mean Temperature of Warmest Period}
   \item{bio11}{Mean Temperature of Coldest Period}
-  \item{bio12}{Annual Precipitation}
-  \item{bio13}{Precipitation of Wettest Period}
-  \item{bio14}{Precipitation of Driest Period}
+  \item{bio12}{Precipitation Sum}
+  \item{bio13}{Precipitation of Wettest Unit}
+  \item{bio14}{Precipitation of Driest Unit}
   \item{bio15}{Precipitation Seasonality}
   \item{bio16}{Precipitation of Wettest Period}
   \item{bio17}{Precipitation of Driest Period}
   \item{bio18}{Precipitation of Warmest Period}
   \item{bio19}{Precipitation of Coldest Period}
-  \item{bio20}{Annual Mean Radiation}
-  \item{bio21}{Highest Period Radiation}
-  \item{bio22}{Lowest Period Radiation}
+  \item{bio20}{Mean Radiation of Units}
+  \item{bio21}{Highest Radiation Unit}
+  \item{bio22}{Lowest Radiation Unit}
   \item{bio23}{Radiation Seasonality}
   \item{bio24}{Radiation of Wettest Period}
   \item{bio25}{Radiation of Driest Period}
   \item{bio26}{Radiation of Warmest Period}
   \item{bio27}{Radiation of Coldest Period}
-  \item{bio28*}{Annual Mean Soil Moisture Content}
-  \item{bio29*}{Highest Period Soil Moisture Content}
-  \item{bio30*}{Lowest Period Soil Moisture Content}
+  \item{bio28*}{Mean Soil Moisture Content Of Units}
+  \item{bio29*}{Highest Soil Moisture Content Unit}
+  \item{bio30*}{Lowest Soil Moisture Content Unit}
   \item{bio31*}{Soil Moisture Content Seasonality}
-  \item{bio32*}{Mean Soil Moisture Content of Highest Period}
-  \item{bio33*}{Mean Soil Moisture Content of Lowest Period}
+  \item{bio32*}{Mean Soil Moisture Content of Most Moist Period}
+  \item{bio33*}{Mean Soil Moisture Content of Least Moist Period}
   \item{bio34*}{Mean Soil Moisture Content of Warmest Period}
   \item{bio35*}{Mean Soil Moisture Content of Coldest Period}
 }
@@ -102,7 +123,10 @@ spatial applications. Outputs are returned as a SpatRaster object
 containing the selected bioclimatic layers, ready for downstream analysis.
 }
 \note{
-*The original soil moisture variables proposed in the ANUCLIM manual are based on the Moisture Index (MI). However, this function allows users to calculate soil moisture-based bioclimatic variables using other units of soil moisture as inputs, offering greater flexibility in input data usage.
+*The original soil moisture variables proposed in the ANUCLIM manual are based 
+on the Moisture Index (MI). However, this function allows users to calculate 
+soil moisture-based bioclimatic variables using other units of soil moisture 
+as inputs, offering greater flexibility in input data usage.
 }
 \references{
 O’Donnell, M. S., & Ignizio, D. A. (2012). Bioclimatic predictors for supporting ecological applications in the conterminous United States (Vol. 691).  
