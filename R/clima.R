@@ -103,8 +103,24 @@
 #' @export
 #'
 clima <- function(bios, tmin = NULL, tmax = NULL, tavg = NULL, prcp = NULL,
-                  srad = NULL, soilm = NULL, period = 3, circular = FALSE, 
+                  srad = NULL, soilm = NULL, period = 3, circular = TRUE, 
                   checkNA = TRUE, stopNA = TRUE, ...) {
+  # Add dor arguments
+  dot_args <- list(...)
+  if ("warmest_unit" %in% names(dot_args)) warmest_unit <- dot_args$warmest_unit
+  if ("coldest_unit" %in% names(dot_args)) coldest_unit <- dot_args$coldest_unit
+  if ("wettest_unit" %in% names(dot_args)) wettest_unit <- dot_args$wettest_unit
+  if ("driest_unit" %in% names(dot_args)) driest_unit <- dot_args$driest_unit
+  if ("high_rad_unit" %in% names(dot_args)) high_rad_unit <- dot_args$high_rad_unit
+  if ("low_rad_unit" %in% names(dot_args)) low_rad_unit <- dot_args$low_rad_unit
+  if ("high_soil_unit" %in% names(dot_args)) high_soil_unit <- dot_args$high_soil_unit
+  if ("low_soil_unit" %in% names(dot_args)) low_soil_unit <- dot_args$low_soil_unit
+  if ("warmest_period" %in% names(dot_args)) warmest_period <- dot_args$warmest_period
+  if ("coldest_period" %in% names(dot_args)) coldest_period <- dot_args$coldest_period
+  if ("wettest_period" %in% names(dot_args)) wettest_period <- dot_args$wettest_period
+  if ("driest_period" %in% names(dot_args)) driest_period <- dot_args$driest_period
+  if ("high_soil_period" %in% names(dot_args)) high_soil_period <- dot_args$high_soil_period
+  if ("low_soil_period" %in% names(dot_args)) low_soil_period <- dot_args$low_soil_period
   # Check for same extent, number of rows and columns, projection,
   # resolution, and origin
   sameGeom <- class(purrr::reduce(list(tmin, tmax, tavg, prcp, srad, soilm) |>
@@ -117,10 +133,18 @@ clima <- function(bios, tmin = NULL, tmax = NULL, tavg = NULL, prcp = NULL,
 
   # CHECKING INPUTS AVAILABLE
   # Bios that requires prcp
-  req_prpc <- c(8, 9, 12, 13, 14, 15, 16, 17, 18, 19, 24, 25)
-  if (any(req_prpc %in% bios)) {
+  req_prcp <- c(8, 9, 12, 13, 14, 15, 16, 17, 18, 19, 24, 25)
+  if (exists("wettest_period")) {
+    if (8 %in% req_prcp) req_prcp <- req_prcp[which(req_prcp != 8)]
+    if (24 %in% req_prcp) req_prcp <- req_prcp[which(req_prcp != 24)] 
+  }
+  if (exists("driest_period")) {
+    if (9 %in% req_prcp) req_prcp <- req_prcp[which(req_prcp != 9)]
+    if (25 %in% req_prcp) req_prcp <- req_prcp[which(req_prcp != 25)] 
+  }
+  if (any(req_prcp %in% bios)) {
     if (is.null(prcp)) {
-      stop(paste0(paste0("Bio", sprintf("%02d", req_prpc[req_prpc %in% bios]),
+      stop(paste0(paste0("Bio", sprintf("%02d", req_prcp[req_prcp %in% bios]),
                          collapse = ", "),
                   " require(s) prcp."))
     }
@@ -135,6 +159,16 @@ clima <- function(bios, tmin = NULL, tmax = NULL, tavg = NULL, prcp = NULL,
 
   # Bios that requires temperature
   req_temp <- c(1, 2, 3, 4, 7, 8, 9, 10, 11, 18, 19, 26, 27, 34, 35)
+  if (exists("warmest_period")) {
+    if (18 %in% req_temp) req_temp <- req_temp[which(req_temp != 18)]
+    if (26 %in% req_temp) req_temp <- req_temp[which(req_temp != 26)]
+    if (34 %in% req_temp) req_temp <- req_temp[which(req_temp != 34)]
+  }
+  if (exists("coldest_period")) {
+    if (19 %in% req_temp) req_temp <- req_temp[which(req_temp != 19)]
+    if (27 %in% req_temp) req_temp <- req_temp[which(req_temp != 27)]
+    if (35 %in% req_temp) req_temp <- req_temp[which(req_temp != 35)]
+  }
   if (any(c(5, 6, req_temp) %in% bios)) {
     # Bios that requires just tmax
     if (5 %in% bios & is.null(tmax)) stop("Bio05 requires tmax.")
@@ -277,8 +311,13 @@ clima <- function(bios, tmin = NULL, tmax = NULL, tavg = NULL, prcp = NULL,
   if (17 %in% bios) bio17 <- bioclima::bio_17(wet, driest_period)
   
   ### ONLY TEMPERATURE PERIOD
+  
   if (any(c(8:11, 18:19, 26:27, 34:35) %in% bios)) {
-    tmp <- bioclima::get_window(tavg, period, circular) / period
+    if (any(c(8:9) %in% bios) | 
+        (any(c(10, 18, 26, 34) %in% bios) & !exists("warmest_period")) |
+        (any(c(11, 19, 27, 35) %in% bios) & !exists("coldest_period"))) {
+      tmp <- bioclima::get_window(tavg, period, circular) / period
+    }
     if (any(c(10, 18, 26, 34) %in% bios) & !exists("warmest_period")) {
       warmest_period <- terra::which.max(tmp)
     }

@@ -13,7 +13,7 @@ clima(
   srad = NULL,
   soilm = NULL,
   period = 3,
-  circular = FALSE,
+  circular = TRUE,
   checkNA = TRUE,
   stopNA = TRUE,
   ...
