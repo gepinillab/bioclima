@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">bioclima</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -110,16 +110,20 @@ ejecutando:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"gepinillab/bioclima"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## terra (1.8-10 -&gt; 1.8-15) [CRAN]</span></span></code></pre>
-<pre><code><span><span class="co">## * checking for file ‘/tmp/Rtmp7icefr/remotes25fa40b88a69/gepinillab-bioclima-9dd00fb/DESCRIPTION’ ... OK</span></span>
+<pre><code><span><span class="co">## * checking for file ‘/tmp/RtmprTCoHg/remotes29825575d3ed/gepinillab-bioclima-8ac4e05/DESCRIPTION’ ... OK</span></span>
 <span><span class="co">## * preparing ‘bioclima’:</span></span>
 <span><span class="co">## * checking DESCRIPTION meta-information ... OK</span></span>
 <span><span class="co">## * checking for LF line-endings in source and make files and shell scripts</span></span>
 <span><span class="co">## * checking for empty or unneeded directories</span></span>
 <span><span class="co">## Omitted ‘LazyData’ from DESCRIPTION</span></span>
-<span><span class="co">## * building ‘bioclima_0.0.4.tar.gz’</span></span></code></pre>
+<span><span class="co">##   NB: this package now depends on R (&gt;= 4.1.0)</span></span>
+<span><span class="co">##   WARNING: Added dependency on R &gt;= 4.1.0 because package code uses the</span></span>
+<span><span class="co">##   pipe |&gt; or function shorthand \(...) syntax added in R 4.1.0.</span></span>
+<span><span class="co">##   File(s) using such syntax:</span></span>
+<span><span class="co">##     ‘clima.R’ ‘stats_clima.R’</span></span>
+<span><span class="co">## * building ‘bioclima_0.1.0.tar.gz’</span></span></code></pre>
 <p>Instale y cargue los paquetes necesarios:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Cargue librerias e instálelas si es necesario</span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://github.com/mikejohnson51/climateR" class="external-link">"climateR"</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"mikejohnson51/climateR"</span><span class="op">)</span> <span class="op">}</span></span>
@@ -139,19 +143,19 @@ ejecutando:</p>
 <span>  <span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"gepinillab/bioclima"</span><span class="op">)</span> <span class="op">}</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="obtener-datos-mensuales-de-el-salvador">Obtener datos mensuales de El Salvador<a class="anchor" aria-label="anchor" href="#obtener-datos-mensuales-de-el-salvador"></a>
+<h3 id="obtener-datos-mensuales-de-costa-rica">Obtener datos mensuales de Costa Rica<a class="anchor" aria-label="anchor" href="#obtener-datos-mensuales-de-costa-rica"></a>
 </h3>
 <p>Descargue variables climáticas mensuales de la base de datos <a href="https://www.climatologylab.org/terraclimate.html" class="external-link">Terraclimate</a>
 utilizando el paquete <code>climateR</code>. Estos rasters tienen una
 resolución espacial de 2.5 minutos de arco y una resolución temporal
 mensual desde 1958 a 2022 (cada año la base de datos se actualiza para
 incluir los meses del año pasado). El siguiente ejemplo creará variables
-bioclimáticas para El Salvador resumiendo un período de 30 años.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Descargar datos de El Salvador (30 años de datos mensuales; 360 meses)</span></span>
+bioclimáticas para Costa Rica resumiendo un período de 30 años.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Descargar datos de Costa Rica (30 años de datos mensuales; 360 meses)</span></span>
 <span><span class="va">env.data</span> <span class="op">&lt;-</span> <span class="fu">climateR</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/climateR/man/getTerraClim.html" class="external-link">getTerraClim</a></span><span class="op">(</span></span>
-<span>  AOI <span class="op">=</span> <span class="fu">AOI</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/AOI/man/aoi_get.html" class="external-link">aoi_get</a></span><span class="op">(</span>country <span class="op">=</span> <span class="st">"El Salvador"</span><span class="op">)</span>,  <span class="co"># Área de interés</span></span>
-<span>  varname <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"tmin"</span>, <span class="st">"tmax"</span>, <span class="st">"ppt"</span><span class="op">)</span>,  <span class="co"># Variables a descargar</span></span>
+<span>  AOI <span class="op">=</span> <span class="fu">AOI</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/AOI/man/aoi_get.html" class="external-link">aoi_get</a></span><span class="op">(</span>country <span class="op">=</span> <span class="st">"Costa Rica"</span><span class="op">)</span>,  <span class="co"># Área de interés</span></span>
+<span>  varname <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"tmin"</span>, <span class="st">"tmax"</span>, <span class="st">"ppt"</span>, <span class="st">"soil"</span>, <span class="st">"srad"</span><span class="op">)</span>,  <span class="co"># Variables a descargar</span></span>
 <span>  startDate <span class="op">=</span> <span class="st">"1990-01-01"</span>,  <span class="co"># Fecha límite inferior</span></span>
 <span>  endDate <span class="op">=</span> <span class="st">"2019-12-01"</span><span class="op">)</span>  <span class="co"># Fecha límite superior</span></span>
 <span><span class="co"># Guardar temperatura mínima mensual</span></span>
@@ -160,37 +164,43 @@ bioclimáticas para El Salvador resumiendo un período de 30 años.</p>
 <span><span class="va">tmax</span> <span class="op">&lt;-</span> <span class="va">env.data</span><span class="op">$</span><span class="va">tmax</span></span>
 <span><span class="co"># Guardar precipitación mensual</span></span>
 <span><span class="va">ppt</span> <span class="op">&lt;-</span> <span class="va">env.data</span><span class="op">$</span><span class="va">ppt</span></span>
+<span><span class="co"># Guardar radiación solar</span></span>
+<span><span class="va">srad</span> <span class="op">&lt;-</span> <span class="va">env.data</span><span class="op">$</span><span class="va">srad</span></span>
+<span><span class="co"># Guardar humedad del suelo</span></span>
+<span><span class="va">soilm</span> <span class="op">&lt;-</span> <span class="va">env.data</span><span class="op">$</span><span class="va">soil</span></span>
 <span><span class="co"># Checar estructura de spatRaster (incluye 360 meses cada uno)</span></span>
 <span><span class="va">tmax</span></span></code></pre></div>
 <pre><code><span><span class="co">## class       : SpatRaster </span></span>
-<span><span class="co">## dimensions  : 32, 58, 360  (nrow, ncol, nlyr)</span></span>
-<span><span class="co">## resolution  : 0.04166672, 0.04166677  (x, y)</span></span>
-<span><span class="co">## extent      : -90.125, -87.70833, 13.125, 14.45834  (xmin, xmax, ymin, ymax)</span></span>
+<span><span class="co">## dimensions  : 73, 82, 360  (nrow, ncol, nlyr)</span></span>
+<span><span class="co">## resolution  : 0.04166671, 0.04166671  (x, y)</span></span>
+<span><span class="co">## extent      : -85.95834, -82.54167, 8.208332, 11.25  (xmin, xmax, ymin, ymax)</span></span>
 <span><span class="co">## coord. ref. : +proj=longlat +ellps=WGS84 +no_defs </span></span>
 <span><span class="co">## source(s)   : memory</span></span>
 <span><span class="co">## names       : tmax_~total, tmax_~total, tmax_~total, tmax_~total, tmax_~total, tmax_~total, ... </span></span>
-<span><span class="co">## min values  :       18.85,       20.03,       20.73,       22.78,       22.05,       20.95, ... </span></span>
-<span><span class="co">## max values  :       34.32,       35.00,       34.84,       35.98,       34.68,       33.75, ... </span></span>
+<span><span class="co">## min values  :       10.83,       11.55,       12.12,       12.53,       11.95,       11.79, ... </span></span>
+<span><span class="co">## max values  :       34.67,       35.76,       36.56,       36.93,       35.76,       34.92, ... </span></span>
 <span><span class="co">## unit        :        degC,        degC,        degC,        degC,        degC,        degC, ... </span></span>
-<span><span class="co">## time        : 1990-01-01 to 2019-12-01 UTC</span></span></code></pre>
+<span><span class="co">## time        : 1990-01-01 to 2019-12-01 (2 steps) UTC</span></span></code></pre>
 <p>Por favor, verifique los rasters antes de guardarlos. El 15 de
 noviembre de 2023, los datos climáticos obtenidos estaban invertidos.
 Afortunadamente, se puede corregir utilizando este código.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Graficar el primer mes (1990-01) de precipitación</span></span>
 <span><span class="co"># Verificar si el mapa está invertido</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ppt</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <p><img src="tutorial_v0_MNE-(ESP)_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># EJECUTAR ESTE CÓDIGO SI LOS VALORES DEL MAPA ESTÁN INVERTIDOS</span></span>
 <span><span class="co"># tmin &lt;- rast(x = tmin, vals = values(t(tmin)))</span></span>
 <span><span class="co"># tmax &lt;- rast(x = tmax, vals = values(t(tmax)))</span></span>
 <span><span class="co"># ppt &lt;- rast(x = ppt, vals = values(t(ppt)))</span></span>
+<span><span class="co"># srad &lt;- rast(x = srad, vals = values(t(srad)))</span></span>
+<span><span class="co"># soil &lt;- rast(x = soil, vals = values(t(soil)))</span></span>
 <span><span class="co"># plot(ppt[[1]])</span></span></code></pre></div>
 <p>Luego, podrá guardar los rasters mensuales en un único archivo TIFF.
 Cada mes se guardará en las bandas de un raster, por lo que no es
 necesario guardar cada mes individualmente.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Crear una carpeta</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"data"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co"># Guardar cada spatRaster</span></span>
@@ -202,6 +212,12 @@ necesario guardar cada mes individualmente.</p>
 <span>                   overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/writeRaster.html" class="external-link">writeRaster</a></span><span class="op">(</span><span class="va">ppt</span>,</span>
 <span>                   <span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"ppt_1990-01-a-2019-12.tif"</span><span class="op">)</span>,</span>
+<span>                   overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/writeRaster.html" class="external-link">writeRaster</a></span><span class="op">(</span><span class="va">srad</span>,</span>
+<span>                   <span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"srad_1990-01-a-2019-12.tif"</span><span class="op">)</span>,</span>
+<span>                   overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/writeRaster.html" class="external-link">writeRaster</a></span><span class="op">(</span><span class="va">soilm</span>,</span>
+<span>                   <span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"soilm_1990-01-a-2019-12.tif"</span><span class="op">)</span>,</span>
 <span>                   overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -212,21 +228,35 @@ variables bioclimáticas basadas en los promedios mensuales (n = 12
 meses). Primero, necesitamos crear promedios mensuales para cada
 variable, y luego usar la función clima() para obtener las 19 variables
 bioclimáticas.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tmin_avg</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/tapp.html" class="external-link">tapp</a></span><span class="op">(</span><span class="va">tmin</span>, index <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">12</span>, <span class="fl">30</span><span class="op">)</span>, fun <span class="op">=</span> <span class="va">mean</span><span class="op">)</span></span>
-<span><span class="va">tmax_avg</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/tapp.html" class="external-link">tapp</a></span><span class="op">(</span><span class="va">tmax</span>, index <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">12</span>, <span class="fl">30</span><span class="op">)</span>, fun <span class="op">=</span> <span class="va">mean</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tmin_avg</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/tapp.html" class="external-link">tapp</a></span><span class="op">(</span><span class="va">tmin</span>, index <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">12</span>, <span class="fl">30</span><span class="op">)</span>, fun <span class="op">=</span> <span class="va">mean</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">tmax_avg</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/tapp.html" class="external-link">tapp</a></span><span class="op">(</span><span class="va">tmax</span>, index <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">12</span>, <span class="fl">30</span><span class="op">)</span>, fun <span class="op">=</span> <span class="va">mean</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">ppt_avg</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/tapp.html" class="external-link">tapp</a></span><span class="op">(</span><span class="va">ppt</span>, index <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">12</span>, <span class="fl">30</span><span class="op">)</span>, fun <span class="op">=</span> <span class="va">mean</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">srad_avg</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/tapp.html" class="external-link">tapp</a></span><span class="op">(</span><span class="va">srad</span>, index <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">12</span>, <span class="fl">30</span><span class="op">)</span>, fun <span class="op">=</span> <span class="va">mean</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">soilm_avg</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/tapp.html" class="external-link">tapp</a></span><span class="op">(</span><span class="va">soilm</span>, index <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">12</span>, <span class="fl">30</span><span class="op">)</span>, fun <span class="op">=</span> <span class="va">mean</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">bios</span> <span class="op">&lt;-</span> <span class="fu">bioclima</span><span class="fu">::</span><span class="fu"><a href="../reference/clima.html">clima</a></span><span class="op">(</span>tmin <span class="op">=</span> <span class="va">tmin_avg</span>, tmax <span class="op">=</span> <span class="va">tmax_avg</span>, prcp <span class="op">=</span> <span class="va">ppt_avg</span>,</span>
-<span>              bios <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">19</span><span class="op">)</span>, period <span class="op">=</span> <span class="fl">3</span>, circular <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">bios</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tutorial_v0_MNE-(ESP)_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
-<div class="section level4">
-<h4 id="diferencias-con-dismobiovars">Diferencias con dismo::biovars()<a class="anchor" aria-label="anchor" href="#diferencias-con-dismobiovars"></a>
-</h4>
-<p>Obtener variables bioclimáticas usando la función del paquete
-<code>dismo</code>.</p>
+<span>                        srad <span class="op">=</span> <span class="va">srad_avg</span>, soilm <span class="op">=</span> <span class="va">soilm_avg</span>,</span>
+<span>              bios <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">35</span>, period <span class="op">=</span> <span class="fl">3</span>, circular <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Plot variables de temperatura</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">bios</span><span class="op">[[</span><span class="fl">1</span><span class="op">:</span><span class="fl">11</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<p><img src="tutorial_v0_MNE-(ESP)_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Plot variables de precipitación</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">bios</span><span class="op">[[</span><span class="fl">12</span><span class="op">:</span><span class="fl">19</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<p><img src="tutorial_v0_MNE-(ESP)_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Plot variables de radición solar</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">bios</span><span class="op">[[</span><span class="fl">20</span><span class="op">:</span><span class="fl">27</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<p><img src="tutorial_v0_MNE-(ESP)_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Plot variables de humedad del suelo</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">bios</span><span class="op">[[</span><span class="fl">28</span><span class="op">:</span><span class="fl">35</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<p><img src="tutorial_v0_MNE-(ESP)_files/figure-html/unnamed-chunk-11-1.png" width="700">
+### Diferencias con dismo::biovars() Obtener variables bioclimáticas
+usando la función del paquete <code>dismo</code>.</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Convertir a stack rasters</span></span>
 <span><span class="va">r.ppt</span> <span class="op">&lt;-</span> <span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/stack.html" class="external-link">stack</a></span><span class="op">(</span><span class="va">ppt_avg</span><span class="op">)</span></span>
 <span><span class="va">r.tmax</span> <span class="op">&lt;-</span> <span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/stack.html" class="external-link">stack</a></span><span class="op">(</span><span class="va">tmax_avg</span><span class="op">)</span></span>
@@ -236,10 +266,10 @@ bioclimáticas.</p>
 <span>                             tmax <span class="op">=</span> <span class="va">r.tmax</span>,</span>
 <span>                             tmin <span class="op">=</span> <span class="va">r.tmin</span><span class="op">)</span></span>
 <span><span class="co"># Comparar salidas (la salida de dismo se convierte a spatRaster)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">bios_dismo</span><span class="op">)</span> <span class="op">-</span> <span class="va">bios</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tutorial_v0_MNE-(ESP)_files/figure-html/unnamed-chunk-8-1.png" width="700">
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">bios_dismo</span><span class="op">)</span> <span class="op">-</span> <span class="va">bios</span><span class="op">[[</span><span class="fl">1</span><span class="op">:</span><span class="fl">19</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<p><img src="tutorial_v0_MNE-(ESP)_files/figure-html/unnamed-chunk-12-1.png" width="700">
 #### Tiempo de ejecución</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Correr bioclima</span></span>
 <span><span class="va">start.bioclima</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">bios</span> <span class="op">&lt;-</span> <span class="fu">bioclima</span><span class="fu">::</span><span class="fu"><a href="../reference/clima.html">clima</a></span><span class="op">(</span>tmin <span class="op">=</span> <span class="va">tmin_avg</span>, tmax <span class="op">=</span> <span class="va">tmax_avg</span>, prcp <span class="op">=</span> <span class="va">ppt_avg</span>,</span>
@@ -254,12 +284,12 @@ bioclimáticas.</p>
 <span><span class="va">end.biovars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">time.biovars</span> <span class="op">&lt;-</span> <span class="va">end.biovars</span> <span class="op">-</span> <span class="va">start.biovars</span></span>
 <span><span class="va">time.biovars</span> <span class="op">-</span> <span class="va">time.bioclima</span></span></code></pre></div>
-<pre><code><span><span class="co">## Time difference of 0.1394672 secs</span></span></code></pre>
+<pre><code><span><span class="co">## Time difference of 0.7426808 secs</span></span></code></pre>
 <p>Al comparar los tiempos de ejecución, la diferencia para un área cómo
-El Salvador es mínima. Pero al aumentar la resolución, el área (más
+Costa Rica es mínima. Pero al aumentar la resolución, el área (más
 celdas), o al hacer series temporales, está diferencia puede ser
 significativa. Por ejemplo, al correr el mismo ejemplo con Colombia (un
-área que es 50 veces más grande que El Salvador) la diferencia fue de
+área que es 50 veces más grande que Costa Rica) la diferencia fue de
 casi un minuto, siendo <code>bioclima</code> 25 veces más rápido
 (resultados no mostrados en este documento y que dependen de la
 computadora utilizada).</p>
@@ -275,7 +305,7 @@ variables de interés. En el siguiente ejemplo solo se obtendrán cuatro
 variables (bio05, bio06, bio13 y bio14). Este ejemplo es algo más
 rápido, ya que no es necesario calcular internamente los trimestres más
 cálidos/fríos o secos/húmedos.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bios4</span> <span class="op">&lt;-</span> <span class="fu">bioclima</span><span class="fu">::</span><span class="fu"><a href="../reference/clima.html">clima</a></span><span class="op">(</span></span>
 <span>  tmin <span class="op">=</span> <span class="va">tmin_avg</span>, </span>
 <span>  tmax <span class="op">=</span> <span class="va">tmax_avg</span>, </span>
@@ -284,8 +314,7 @@ cálidos/fríos o secos/húmedos.</p>
 <span>  period <span class="op">=</span> <span class="fl">3</span>, </span>
 <span>  circular <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">bios4</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tutorial_v0_MNE-(ESP)_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
-</div>
+<p><img src="tutorial_v0_MNE-(ESP)_files/figure-html/unnamed-chunk-14-1.png" width="700"></p>
 </div>
 </div>
 <div class="section level3">
@@ -305,14 +334,14 @@ el último de enero 2000 a diciembre 2019.</p>
 <p>Para guardar los intervalos de veinte años, se puede crear un índice
 basado en el mes de inicio. Luego se utilizará un loop para crear cada
 periodo de veinte años.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mes_inicial</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"1990-01-01"</span>, format <span class="op">=</span> <span class="st">"%Y-%m-%d"</span><span class="op">)</span>,</span>
 <span>                   <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2000-01-01"</span>, format <span class="op">=</span> <span class="st">"%Y-%m-%d"</span><span class="op">)</span>, </span>
 <span>                   by <span class="op">=</span> <span class="st">"1 month"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mes_inicial</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "1990-01-01" "1990-02-01" "1990-03-01" "1990-04-01" "1990-05-01"</span></span>
 <span><span class="co">## [6] "1990-06-01"</span></span></code></pre>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"./data/bios"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">mes_inicial</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="co"># Crear promedios de cada mes (e.g., promedios de veinte eneros, </span></span>
@@ -480,25 +509,687 @@ periodo de veinte años.</p>
 <div class="section level4">
 <h4 id="leer-archivos">Leer archivos<a class="anchor" aria-label="anchor" href="#leer-archivos"></a>
 </h4>
-<div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb142"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Primer periodo</span></span>
 <span><span class="va">ene1990</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"./data/bios/1990-01-01_mas-239-meses.tif"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ene1990</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tutorial_v0_MNE-(ESP)_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
-<div class="sourceCode" id="cb140"><pre class="downlit sourceCode r">
+<p><img src="tutorial_v0_MNE-(ESP)_files/figure-html/unnamed-chunk-17-1.png" width="700"></p>
+<div class="sourceCode" id="cb143"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Último periodo</span></span>
 <span><span class="va">ene2000</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"./data/bios/2000-01-01_mas-239-meses.tif"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ene2000</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tutorial_v0_MNE-(ESP)_files/figure-html/unnamed-chunk-14-1.png" width="700"></p>
-<div class="sourceCode" id="cb141"><pre class="downlit sourceCode r">
+<p><img src="tutorial_v0_MNE-(ESP)_files/figure-html/unnamed-chunk-18-1.png" width="700"></p>
+<div class="sourceCode" id="cb144"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Checar differencias entre periodos para bio01 (promedio de temperatura anual)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ene2000</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">-</span> <span class="va">ene1990</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tutorial_v0_MNE-(ESP)_files/figure-html/unnamed-chunk-15-1.png" width="700"></p>
-<div class="sourceCode" id="cb142"><pre class="downlit sourceCode r">
+<p><img src="tutorial_v0_MNE-(ESP)_files/figure-html/unnamed-chunk-19-1.png" width="700"></p>
+<div class="sourceCode" id="cb145"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Checar diferencias entre periodos para bio12 (promedio de precipitación anual)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ene2000</span><span class="op">[[</span><span class="fl">12</span><span class="op">]</span><span class="op">]</span> <span class="op">-</span> <span class="va">ene1990</span><span class="op">[[</span><span class="fl">12</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tutorial_v0_MNE-(ESP)_files/figure-html/unnamed-chunk-16-1.png" width="700">
-```</p>
+<p><img src="tutorial_v0_MNE-(ESP)_files/figure-html/unnamed-chunk-20-1.png" width="700"></p>
+</div>
+<div class="section level4">
+<h4 id="definiendo-periodos-fijos">Definiendo periodos fijos<a class="anchor" aria-label="anchor" href="#definiendo-periodos-fijos"></a>
+</h4>
+<p>Muchas de las variables utilizadas son definidas por valores minimos
+o máximosa lo largo de un periodo de tiempo. Por ejemplo, precipitación
+del més más humedo, o la temperatura máxima del trimestre más calido. Al
+utilizar series de tiempo, el mes o trimestre puede varias entre
+periodos. En caso que la especie a modelar requiera de periodos fijos a
+lo largo de tiempo, se puede especificar cómo argumento adicional en la
+función clima.</p>
+<div class="section level5">
+<h5 id="ver-diferencias-entre-periodos-de-precipitación">Ver diferencias entre periodos de precipitación<a class="anchor" aria-label="anchor" href="#ver-diferencias-entre-periodos-de-precipitaci%C3%B3n"></a>
+</h5>
+<p>En primer caso, vamos a calcular cúal es el mes con mayor
+precipitación para el periodo de 1990-01 a 2010-12.</p>
+<div class="sourceCode" id="cb146"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Obtener promedios mensuales</span></span>
+<span><span class="va">hum_1990_01</span> <span class="op">&lt;-</span>  <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/tapp.html" class="external-link">tapp</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">ppt</span><span class="op">[[</span><span class="fl">1</span><span class="op">:</span><span class="fl">240</span><span class="op">]</span><span class="op">]</span>, <span class="co">#240 meses</span></span>
+<span>    index <span class="op">=</span> <span class="st">"month"</span>, <span class="co"># índice mensual</span></span>
+<span>    fun <span class="op">=</span> <span class="va">mean</span>, </span>
+<span>    na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">max_1990_01</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/summarize-generics.html" class="external-link">which.max</a></span><span class="op">(</span><span class="va">hum_1990_01</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/subst.html" class="external-link">subst</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">12</span>, <span class="fu"><a href="https://rspatial.github.io/terra/reference/time.html" class="external-link">time</a></span><span class="op">(</span><span class="va">hum_1990_01</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/factors.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">max_1990_01</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">12</span>,</span>
+<span>                                mes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Ene"</span>, <span class="st">"Feb"</span>, <span class="st">"Mar"</span>, <span class="st">"Abr"</span>, </span>
+<span>                                        <span class="st">"May"</span>, <span class="st">"Jun"</span>, <span class="st">"Jul"</span>, <span class="st">"Aug"</span>, </span>
+<span>                                        <span class="st">"Sep"</span>, <span class="st">"Oct"</span>, <span class="st">"Nov"</span>, <span class="st">"Dic"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">max_1990_01</span><span class="op">)</span></span></code></pre></div>
+<p><img src="tutorial_v0_MNE-(ESP)_files/figure-html/unnamed-chunk-21-1.png" width="700"></p>
+<div class="sourceCode" id="cb147"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">hum_2000_01</span> <span class="op">&lt;-</span>  <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/tapp.html" class="external-link">tapp</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">ppt</span><span class="op">[[</span><span class="fl">121</span><span class="op">:</span><span class="fl">360</span><span class="op">]</span><span class="op">]</span>, <span class="co">#240 meses</span></span>
+<span>    index <span class="op">=</span> <span class="st">"months"</span>, <span class="co"># índice mensual</span></span>
+<span>    fun <span class="op">=</span> <span class="va">mean</span>, </span>
+<span>    na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">max_2000_01</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/summarize-generics.html" class="external-link">which.max</a></span><span class="op">(</span><span class="va">hum_2000_01</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/subst.html" class="external-link">subst</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">12</span>, <span class="fu"><a href="https://rspatial.github.io/terra/reference/time.html" class="external-link">time</a></span><span class="op">(</span><span class="va">hum_2000_01</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/factors.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">max_2000_01</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">12</span>,</span>
+<span>                                mes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Ene"</span>, <span class="st">"Feb"</span>, <span class="st">"Mar"</span>, <span class="st">"Abr"</span>, </span>
+<span>                                        <span class="st">"May"</span>, <span class="st">"Jun"</span>, <span class="st">"Jul"</span>, <span class="st">"Aug"</span>, </span>
+<span>                                        <span class="st">"Sep"</span>, <span class="st">"Oct"</span>, <span class="st">"Nov"</span>, <span class="st">"Dic"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">max_2000_01</span><span class="op">)</span></span></code></pre></div>
+<p><img src="tutorial_v0_MNE-(ESP)_files/figure-html/unnamed-chunk-22-1.png" width="700"></p>
+<div class="sourceCode" id="cb148"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">bio13_2000_01</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/clima.html">clima</a></span><span class="op">(</span>prcp <span class="op">=</span> <span class="va">ppt</span><span class="op">[[</span><span class="fl">121</span><span class="op">:</span><span class="fl">360</span><span class="op">]</span><span class="op">]</span>, bios <span class="op">=</span> <span class="fl">13</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span></code></pre>
+<div class="sourceCode" id="cb150"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">bio13_2000_01</span><span class="op">)</span></span></code></pre></div>
+<p><img src="tutorial_v0_MNE-(ESP)_files/figure-html/unnamed-chunk-23-1.png" width="700"></p>
+<div class="sourceCode" id="cb151"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">bio13_2000_01_fix</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/clima.html">clima</a></span><span class="op">(</span>prcp <span class="op">=</span> <span class="va">ppt</span><span class="op">[[</span><span class="fl">121</span><span class="op">:</span><span class="fl">360</span><span class="op">]</span><span class="op">]</span>, bios <span class="op">=</span> <span class="fl">13</span>, </span>
+<span>                           wettest_unit <span class="op">=</span> <span class="va">max_1990_01</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span></code></pre>
+<div class="sourceCode" id="cb153"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">bio13_2000_01_fix</span><span class="op">)</span></span></code></pre></div>
+<p><img src="tutorial_v0_MNE-(ESP)_files/figure-html/unnamed-chunk-24-1.png" width="700"></p>
+<div class="sourceCode" id="cb154"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Trimestre de menor temperatura</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">mes_inicial</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># Crear promedios de cada mes (e.g., promedios de veinte eneros, </span></span>
+<span>  <span class="co"># promedio de veinte febreros, etc.)</span></span>
+<span>  <span class="co"># TMIN</span></span>
+<span>  <span class="va">menor_temp</span> <span class="op">&lt;-</span>  <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/tapp.html" class="external-link">tapp</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">tmin</span><span class="op">[[</span><span class="va">i</span><span class="op">:</span><span class="op">(</span><span class="va">i</span><span class="op">+</span><span class="fl">240</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">]</span><span class="op">]</span>, <span class="co">#240 meses</span></span>
+<span>    index <span class="op">=</span> <span class="st">"months"</span>, <span class="co"># índice mensual</span></span>
+<span>    fun <span class="op">=</span> <span class="va">mean</span>, </span>
+<span>    na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># remover NAs</span></span>
+<span>  <span class="va">tri_menor</span> <span class="op">&lt;-</span> <span class="fu">bioclima</span><span class="fu">::</span><span class="fu"><a href="../reference/get_window.html">get_window</a></span><span class="op">(</span><span class="va">menor_temp</span>, period <span class="op">=</span> <span class="fl">3</span>, circular <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">/</span> <span class="fl">3</span></span>
+<span>  <span class="va">min_tri_menor</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/summarize-generics.html" class="external-link">which.min</a></span><span class="op">(</span><span class="va">tri_menor</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/subst.html" class="external-link">subst</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">12</span>, <span class="fu"><a href="https://rspatial.github.io/terra/reference/time.html" class="external-link">time</a></span><span class="op">(</span><span class="va">menor_temp</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rspatial.github.io/terra/reference/factors.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">min_tri_menor</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">12</span>,</span>
+<span>                                mes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"EFM"</span>, <span class="st">"FMA"</span>, <span class="st">"MAM"</span>, <span class="st">"AMJ"</span>, </span>
+<span>                                        <span class="st">"MJJ"</span>, <span class="st">"JJA"</span>, <span class="st">"JAS"</span>, <span class="st">"ASO"</span>, </span>
+<span>                                        <span class="st">"SON"</span>, <span class="st">"OND"</span>, <span class="st">"NDE"</span>, <span class="st">"DEF"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="va">i</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">ts_trimestre</span> <span class="op">&lt;-</span> <span class="va">min_tri_menor</span></span>
+<span>  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>    <span class="va">ts_trimestre</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">ts_trimestre</span>, <span class="va">min_tri_menor</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span>  </span>
+<span>  <span class="co"># Imprimir porcentaje de avance en la consola</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/math-generics.html" class="external-link">round</a></span><span class="op">(</span><span class="va">i</span><span class="op">*</span><span class="fl">100</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">mes_inicial</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="co"># Remover archivos temporales en la memoria RAM</span></span>
+<span>  <span class="fu"><a href="https://rspatial.github.io/terra/reference/tmpFile.html" class="external-link">tmpFiles</a></span><span class="op">(</span>remove <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.83</span></span>
+<span><span class="co">## [1] 1.65</span></span>
+<span><span class="co">## [1] 2.48</span></span>
+<span><span class="co">## [1] 3.31</span></span>
+<span><span class="co">## [1] 4.13</span></span>
+<span><span class="co">## [1] 4.96</span></span>
+<span><span class="co">## [1] 5.79</span></span>
+<span><span class="co">## [1] 6.61</span></span>
+<span><span class="co">## [1] 7.44</span></span>
+<span><span class="co">## [1] 8.26</span></span>
+<span><span class="co">## [1] 9.09</span></span>
+<span><span class="co">## [1] 9.92</span></span>
+<span><span class="co">## [1] 10.74</span></span>
+<span><span class="co">## [1] 11.57</span></span>
+<span><span class="co">## [1] 12.4</span></span>
+<span><span class="co">## [1] 13.22</span></span>
+<span><span class="co">## [1] 14.05</span></span>
+<span><span class="co">## [1] 14.88</span></span>
+<span><span class="co">## [1] 15.7</span></span>
+<span><span class="co">## [1] 16.53</span></span>
+<span><span class="co">## [1] 17.36</span></span>
+<span><span class="co">## [1] 18.18</span></span>
+<span><span class="co">## [1] 19.01</span></span>
+<span><span class="co">## [1] 19.83</span></span>
+<span><span class="co">## [1] 20.66</span></span>
+<span><span class="co">## [1] 21.49</span></span>
+<span><span class="co">## [1] 22.31</span></span>
+<span><span class="co">## [1] 23.14</span></span>
+<span><span class="co">## [1] 23.97</span></span>
+<span><span class="co">## [1] 24.79</span></span>
+<span><span class="co">## [1] 25.62</span></span>
+<span><span class="co">## [1] 26.45</span></span>
+<span><span class="co">## [1] 27.27</span></span>
+<span><span class="co">## [1] 28.1</span></span>
+<span><span class="co">## [1] 28.93</span></span>
+<span><span class="co">## [1] 29.75</span></span>
+<span><span class="co">## [1] 30.58</span></span>
+<span><span class="co">## [1] 31.4</span></span>
+<span><span class="co">## [1] 32.23</span></span>
+<span><span class="co">## [1] 33.06</span></span>
+<span><span class="co">## [1] 33.88</span></span>
+<span><span class="co">## [1] 34.71</span></span>
+<span><span class="co">## [1] 35.54</span></span>
+<span><span class="co">## [1] 36.36</span></span>
+<span><span class="co">## [1] 37.19</span></span>
+<span><span class="co">## [1] 38.02</span></span>
+<span><span class="co">## [1] 38.84</span></span>
+<span><span class="co">## [1] 39.67</span></span>
+<span><span class="co">## [1] 40.5</span></span>
+<span><span class="co">## [1] 41.32</span></span>
+<span><span class="co">## [1] 42.15</span></span>
+<span><span class="co">## [1] 42.98</span></span>
+<span><span class="co">## [1] 43.8</span></span>
+<span><span class="co">## [1] 44.63</span></span>
+<span><span class="co">## [1] 45.45</span></span>
+<span><span class="co">## [1] 46.28</span></span>
+<span><span class="co">## [1] 47.11</span></span>
+<span><span class="co">## [1] 47.93</span></span>
+<span><span class="co">## [1] 48.76</span></span>
+<span><span class="co">## [1] 49.59</span></span>
+<span><span class="co">## [1] 50.41</span></span>
+<span><span class="co">## [1] 51.24</span></span>
+<span><span class="co">## [1] 52.07</span></span>
+<span><span class="co">## [1] 52.89</span></span>
+<span><span class="co">## [1] 53.72</span></span>
+<span><span class="co">## [1] 54.55</span></span>
+<span><span class="co">## [1] 55.37</span></span>
+<span><span class="co">## [1] 56.2</span></span>
+<span><span class="co">## [1] 57.02</span></span>
+<span><span class="co">## [1] 57.85</span></span>
+<span><span class="co">## [1] 58.68</span></span>
+<span><span class="co">## [1] 59.5</span></span>
+<span><span class="co">## [1] 60.33</span></span>
+<span><span class="co">## [1] 61.16</span></span>
+<span><span class="co">## [1] 61.98</span></span>
+<span><span class="co">## [1] 62.81</span></span>
+<span><span class="co">## [1] 63.64</span></span>
+<span><span class="co">## [1] 64.46</span></span>
+<span><span class="co">## [1] 65.29</span></span>
+<span><span class="co">## [1] 66.12</span></span>
+<span><span class="co">## [1] 66.94</span></span>
+<span><span class="co">## [1] 67.77</span></span>
+<span><span class="co">## [1] 68.6</span></span>
+<span><span class="co">## [1] 69.42</span></span>
+<span><span class="co">## [1] 70.25</span></span>
+<span><span class="co">## [1] 71.07</span></span>
+<span><span class="co">## [1] 71.9</span></span>
+<span><span class="co">## [1] 72.73</span></span>
+<span><span class="co">## [1] 73.55</span></span>
+<span><span class="co">## [1] 74.38</span></span>
+<span><span class="co">## [1] 75.21</span></span>
+<span><span class="co">## [1] 76.03</span></span>
+<span><span class="co">## [1] 76.86</span></span>
+<span><span class="co">## [1] 77.69</span></span>
+<span><span class="co">## [1] 78.51</span></span>
+<span><span class="co">## [1] 79.34</span></span>
+<span><span class="co">## [1] 80.17</span></span>
+<span><span class="co">## [1] 80.99</span></span>
+<span><span class="co">## [1] 81.82</span></span>
+<span><span class="co">## [1] 82.64</span></span>
+<span><span class="co">## [1] 83.47</span></span>
+<span><span class="co">## [1] 84.3</span></span>
+<span><span class="co">## [1] 85.12</span></span>
+<span><span class="co">## [1] 85.95</span></span>
+<span><span class="co">## [1] 86.78</span></span>
+<span><span class="co">## [1] 87.6</span></span>
+<span><span class="co">## [1] 88.43</span></span>
+<span><span class="co">## [1] 89.26</span></span>
+<span><span class="co">## [1] 90.08</span></span>
+<span><span class="co">## [1] 90.91</span></span>
+<span><span class="co">## [1] 91.74</span></span>
+<span><span class="co">## [1] 92.56</span></span>
+<span><span class="co">## [1] 93.39</span></span>
+<span><span class="co">## [1] 94.21</span></span>
+<span><span class="co">## [1] 95.04</span></span>
+<span><span class="co">## [1] 95.87</span></span>
+<span><span class="co">## [1] 96.69</span></span>
+<span><span class="co">## [1] 97.52</span></span>
+<span><span class="co">## [1] 98.35</span></span>
+<span><span class="co">## [1] 99.17</span></span>
+<span><span class="co">## [1] 100</span></span></code></pre>
+<div class="sourceCode" id="cb156"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">modal_trimestre</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/modal.html" class="external-link">modal</a></span><span class="op">(</span><span class="va">ts_trimestre</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/factors.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">modal_trimestre</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">12</span>,</span>
+<span>                                    mes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"EFM"</span>, <span class="st">"FMA"</span>, <span class="st">"MAM"</span>, <span class="st">"AMJ"</span>, </span>
+<span>                                            <span class="st">"MJJ"</span>, <span class="st">"JJA"</span>, <span class="st">"JAS"</span>, <span class="st">"ASO"</span>, </span>
+<span>                                            <span class="st">"SON"</span>, <span class="st">"OND"</span>, <span class="st">"NDE"</span>, <span class="st">"DEF"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">modal_trimestre</span><span class="op">)</span></span></code></pre></div>
+<p><img src="tutorial_v0_MNE-(ESP)_files/figure-html/unnamed-chunk-26-1.png" width="700"></p>
+<div class="sourceCode" id="cb157"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">mes_inicial</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">srad_int</span> <span class="op">&lt;-</span>  <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/tapp.html" class="external-link">tapp</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">srad</span><span class="op">[[</span><span class="va">i</span><span class="op">:</span><span class="op">(</span><span class="va">i</span><span class="op">+</span><span class="fl">240</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">]</span><span class="op">]</span>, <span class="co">#240 meses</span></span>
+<span>    index <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">12</span>, <span class="co"># índice mensual</span></span>
+<span>    fun <span class="op">=</span> <span class="va">mean</span>, </span>
+<span>    na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># remover NAs</span></span>
+<span>  <span class="va">soilm_int</span> <span class="op">&lt;-</span>  <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/tapp.html" class="external-link">tapp</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">soilm</span><span class="op">[[</span><span class="va">i</span><span class="op">:</span><span class="op">(</span><span class="va">i</span><span class="op">+</span><span class="fl">240</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">]</span><span class="op">]</span>, <span class="co">#240 meses</span></span>
+<span>    index <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">12</span>, <span class="co"># índice mensual</span></span>
+<span>    fun <span class="op">=</span> <span class="va">mean</span>, </span>
+<span>    na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># remover NAs</span></span>
+<span>  <span class="co"># Crear sets of variables bioclimaticas</span></span>
+<span>  <span class="va">ts_bios_subset</span> <span class="op">&lt;-</span> <span class="fu">bioclima</span><span class="fu">::</span><span class="fu"><a href="../reference/clima.html">clima</a></span><span class="op">(</span></span>
+<span>    bios <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">27</span>, <span class="fl">35</span><span class="op">)</span>,</span>
+<span>    <span class="co"># tmin = tmin_int,</span></span>
+<span>    <span class="co"># tmax = tmax_int,</span></span>
+<span>    srad <span class="op">=</span> <span class="va">srad_int</span>, </span>
+<span>    soilm <span class="op">=</span> <span class="va">soilm_int</span>, </span>
+<span>    checkNA <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    coldest_period <span class="op">=</span> <span class="va">modal_trimestre</span></span>
+<span>  <span class="op">)</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="va">i</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">bio27_ts</span> <span class="op">&lt;-</span> <span class="va">ts_bios_subset</span><span class="op">[[</span><span class="st">"bio27"</span><span class="op">]</span><span class="op">]</span></span>
+<span>    <span class="va">bio35_ts</span> <span class="op">&lt;-</span> <span class="va">ts_bios_subset</span><span class="op">[[</span><span class="st">"bio35"</span><span class="op">]</span><span class="op">]</span></span>
+<span>  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>    <span class="va">bio27_ts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">bio27_ts</span>, <span class="va">ts_bios_subset</span><span class="op">[[</span><span class="st">"bio27"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span>    <span class="va">bio35_ts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">bio35_ts</span>, <span class="va">ts_bios_subset</span><span class="op">[[</span><span class="st">"bio35"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span>  <span class="co"># Imprimir porcentaje de avance en la consola</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/math-generics.html" class="external-link">round</a></span><span class="op">(</span><span class="va">i</span><span class="op">*</span><span class="fl">100</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">mes_inicial</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="co"># Remover archivos temporales en la memoria RAM</span></span>
+<span>  <span class="fu"><a href="https://rspatial.github.io/terra/reference/tmpFile.html" class="external-link">tmpFiles</a></span><span class="op">(</span>remove <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span></code></pre>
+<pre><code><span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 0.83</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 1.65</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 2.48</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 3.31</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 4.13</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 4.96</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 5.79</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 6.61</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 7.44</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 8.26</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 9.09</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 9.92</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 10.74</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 11.57</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 12.4</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 13.22</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 14.05</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 14.88</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 15.7</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 16.53</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 17.36</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 18.18</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 19.01</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 19.83</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 20.66</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 21.49</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 22.31</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 23.14</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 23.97</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 24.79</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 25.62</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 26.45</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 27.27</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 28.1</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 28.93</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 29.75</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 30.58</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 31.4</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 32.23</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 33.06</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 33.88</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 34.71</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 35.54</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 36.36</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 37.19</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 38.02</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 38.84</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 39.67</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 40.5</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 41.32</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 42.15</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 42.98</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 43.8</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 44.63</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 45.45</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 46.28</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 47.11</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 47.93</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 48.76</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 49.59</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 50.41</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 51.24</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 52.07</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 52.89</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 53.72</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 54.55</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 55.37</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 56.2</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 57.02</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 57.85</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 58.68</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 59.5</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 60.33</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 61.16</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 61.98</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 62.81</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 63.64</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 64.46</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 65.29</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 66.12</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 66.94</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 67.77</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 68.6</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 69.42</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 70.25</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 71.07</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 71.9</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 72.73</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 73.55</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 74.38</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 75.21</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 76.03</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 76.86</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 77.69</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 78.51</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 79.34</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 80.17</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 80.99</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 81.82</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 82.64</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 83.47</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 84.3</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 85.12</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 85.95</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 86.78</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 87.6</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 88.43</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 89.26</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 90.08</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 90.91</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 91.74</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 92.56</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 93.39</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 94.21</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 95.04</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 95.87</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 96.69</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 97.52</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 98.35</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 99.17</span></span></code></pre>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span>
+<span><span class="co">## Bio27, Bio35 was(were) built with a period of 3 units with circularity.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 100</span></span></code></pre>
+<div class="sourceCode" id="cb401"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">bio27_ts</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<p><img src="tutorial_v0_MNE-(ESP)_files/figure-html/unnamed-chunk-28-1.png" width="700"></p>
+<div class="sourceCode" id="cb402"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">bio35_ts</span><span class="op">[[</span><span class="fl">121</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<p><img src="tutorial_v0_MNE-(ESP)_files/figure-html/unnamed-chunk-29-1.png" width="700"></p>
+<div class="sourceCode" id="cb403"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">wind.data</span> <span class="op">&lt;-</span> <span class="fu">climateR</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/climateR/man/getTerraClim.html" class="external-link">getTerraClim</a></span><span class="op">(</span></span>
+<span>  AOI <span class="op">=</span> <span class="fu">AOI</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/AOI/man/aoi_get.html" class="external-link">aoi_get</a></span><span class="op">(</span>country <span class="op">=</span> <span class="st">"Costa Rica"</span><span class="op">)</span>,  <span class="co"># Área de interés</span></span>
+<span>  varname <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"PDSI"</span><span class="op">)</span>,  <span class="co"># Variables a descargar</span></span>
+<span>  startDate <span class="op">=</span> <span class="st">"1990-01-01"</span>,  <span class="co"># Fecha límite inferior</span></span>
+<span>  endDate <span class="op">=</span> <span class="st">"2019-12-01"</span><span class="op">)</span></span>
+<span><span class="va">wind</span> <span class="op">&lt;-</span> <span class="va">wind.data</span><span class="op">$</span><span class="va">PDSI</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">wind</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<p><img src="tutorial_v0_MNE-(ESP)_files/figure-html/unnamed-chunk-30-1.png" width="700"></p>
+<div class="sourceCode" id="cb404"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">wind_avg</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/tapp.html" class="external-link">tapp</a></span><span class="op">(</span><span class="va">wind</span>, index <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">12</span>, <span class="fl">30</span><span class="op">)</span>, fun <span class="op">=</span> <span class="va">mean</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">wind_stats</span> <span class="op">&lt;-</span> <span class="fu">bioclima</span><span class="fu">::</span><span class="fu">stats_clima</span><span class="op">(</span>variable <span class="op">=</span> <span class="va">wind_avg</span>, </span>
+<span>                                    inter_variable <span class="op">=</span> <span class="va">ppt_avg</span>,</span>
+<span>                                    prefix_variable <span class="op">=</span> <span class="st">"wind"</span>,</span>
+<span>                                    suffix_inter_max <span class="op">=</span> <span class="st">"wettest"</span>,</span>
+<span>                                    suffix_inter_min <span class="op">=</span> <span class="st">"driest"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span></code></pre>
+<div class="sourceCode" id="cb406"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">wind_stats</span></span></code></pre></div>
+<pre><code><span><span class="co">## class       : SpatRaster </span></span>
+<span><span class="co">## dimensions  : 73, 82, 8  (nrow, ncol, nlyr)</span></span>
+<span><span class="co">## resolution  : 0.04166671, 0.04166671  (x, y)</span></span>
+<span><span class="co">## extent      : -85.95834, -82.54167, 8.208332, 11.25  (xmin, xmax, ymin, ymax)</span></span>
+<span><span class="co">## coord. ref. : +proj=longlat +ellps=WGS84 +no_defs </span></span>
+<span><span class="co">## source(s)   : memory</span></span>
+<span><span class="co">## names       :  wind_mean,   wind_max,  wind_min,   wind_cv, wind_~eriod, wind_~eriod, ... </span></span>
+<span><span class="co">## min values  : -1.7785278, -1.0403333, -2.632333,  54.49579,  -1.1933333,  -2.5182222, ... </span></span>
+<span><span class="co">## max values  : -0.6481944,  0.4073333, -1.047000, 128.35310,   0.1524444,  -0.9714444, ...</span></span></code></pre>
+<div class="sourceCode" id="cb408"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">wind_stats</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<p><img src="tutorial_v0_MNE-(ESP)_files/figure-html/unnamed-chunk-31-1.png" width="700"></p>
+<div class="sourceCode" id="cb409"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">wind_stats_soil</span> <span class="op">&lt;-</span> <span class="fu">bioclima</span><span class="fu">::</span><span class="fu">stats_clima</span><span class="op">(</span>variable <span class="op">=</span> <span class="va">wind_avg</span>,</span>
+<span>                                         stats <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>                                         inter_variable <span class="op">=</span> <span class="va">tmax_avg</span> <span class="op">-</span> <span class="va">tmin_avg</span>,</span>
+<span>                                         prefix_variable <span class="op">=</span> <span class="st">"wind"</span>,</span>
+<span>                                         suffix_inter_max <span class="op">=</span> <span class="st">"warmest"</span>,</span>
+<span>                                         suffix_inter_min <span class="op">=</span> <span class="st">"coldest"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## SpatRasters have same extent, number of rows and columns, projection, resolution, and origin</span></span></code></pre>
+<div class="sourceCode" id="cb411"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">wind_stats_soil</span><span class="op">)</span></span></code></pre></div>
+<p><img src="tutorial_v0_MNE-(ESP)_files/figure-html/unnamed-chunk-32-1.png" width="700"></p>
+</div>
 </div>
 </div>
 </div>

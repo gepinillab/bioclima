@@ -3,7 +3,7 @@ pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   tutorial_v0_MNE-(ESP): tutorial_v0_MNE-(ESP).html
-last_built: 2025-01-24T22:02Z
+last_built: 2025-04-25T17:03Z
 urls:
   reference: https://gepinillab.github.io/bioclima/reference
   article: https://gepinillab.github.io/bioclima/articles
