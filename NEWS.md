@@ -1,3 +1,7 @@
+bioclima 0.1.1
+=============
+- Fix bug for bio18 and bio19, which was using temperature periods intead of precipitation. Bug was introduced when adding the new option of static periods (2025-02-10). If you used a previous version, bios were calculated correctly.
+
 bioclima 0.1.0
 =============
 - Easier names for internal functions
