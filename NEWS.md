@@ -1,3 +1,7 @@
+bioclima 0.1.2
+=============
+- Use mois code intead of soilm to define Moistue varibles. This technically allows to use any kind of moisture variables as climate and soil moisture. Also, bio31() use standard deviation instead of CV because climate index (as the one available in Chelsa can be negative)
+
 bioclima 0.1.1
 =============
 - Fix bug for bio18 and bio19, which was using temperature periods intead of precipitation. Bug was introduced when adding the new option of static periods (2025-02-10). If you used a previous version, bios were calculated correctly.
