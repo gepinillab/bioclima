@@ -276,7 +276,7 @@ bio_30 <- function(mois, low_mois_unit = NULL) {
 # P31. Moisture Seasonality (Coefficient of Variation)
 #' @export
 bio_31 <- function(mois) {
-  gueta_quihicha_ata <- cv_cli(mois)
+  gueta_quihicha_ata <- 100 * terra::stdev(mois, pop = FALSE, na.rm = TRUE)
   names(gueta_quihicha_ata) <- "bio31"
   return(gueta_quihicha_ata)
 }
