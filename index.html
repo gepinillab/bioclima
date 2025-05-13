@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">bioclima</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -81,7 +81,7 @@
 <p>To install <code>bioclima</code>, you can use the <code>remotes</code> package. If you don’t have it installed, you can do so by running:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"gepinillab/bioclima"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"gepinillab/bioclima"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
@@ -90,9 +90,9 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load libraries AND install them if necessary</span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://github.com/mikejohnson51/climateR" class="external-link">"climateR"</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"mikejohnson51/climateR"</span><span class="op">)</span> <span class="op">}</span></span>
+<span>  <span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"mikejohnson51/climateR"</span><span class="op">)</span> <span class="op">}</span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://github.com/mikejohnson51/AOI/" class="external-link">"AOI"</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"mikejohnson51/AOI"</span><span class="op">)</span> <span class="op">}</span></span>
+<span>  <span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"mikejohnson51/AOI"</span><span class="op">)</span> <span class="op">}</span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://rspatial.org/" class="external-link">"terra"</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"terra"</span><span class="op">)</span> <span class="op">}</span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://here.r-lib.org/" class="external-link">"here"</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
@@ -100,7 +100,7 @@
 <span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://magrittr.tidyverse.org" class="external-link">"magrittr"</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"magrittr"</span><span class="op">)</span> <span class="op">}</span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://gepinillab.github.io/bioclima/">"bioclima"</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"gepinillab/bioclima"</span><span class="op">)</span> <span class="op">}</span></span></code></pre></div>
+<span>  <span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"gepinillab/bioclima"</span><span class="op">)</span> <span class="op">}</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="get-monthly-data">Get monthly data<a class="anchor" aria-label="anchor" href="#get-monthly-data"></a>
 </h3>
@@ -119,8 +119,8 @@
 <span><span class="va">ppt</span> <span class="op">&lt;-</span> <span class="va">env.data</span><span class="op">$</span><span class="va">ppt</span></span>
 <span><span class="co"># Save monthly solar radiation</span></span>
 <span><span class="co"># srad &lt;- env.data$srad</span></span>
-<span><span class="co"># Save monthly soil moisture</span></span>
-<span><span class="va">soilm</span> <span class="op">&lt;-</span> <span class="va">env.data</span><span class="op">$</span><span class="va">soil</span></span></code></pre></div>
+<span><span class="co"># Save monthly moisture</span></span>
+<span><span class="va">mois</span> <span class="op">&lt;-</span> <span class="va">env.data</span><span class="op">$</span><span class="va">soil</span></span></code></pre></div>
 <p>Please check the raster inputs before saving the rasters. In Nov 15th, 2023 the climatic data obtained was flipped. Fortunately, it can be fixed using this code.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Plot first month (1990-01) of precipitation</span></span>
@@ -132,7 +132,7 @@
 <span><span class="co"># tmax &lt;- rast(x = tmax, vals = values(t(tmax)))</span></span>
 <span><span class="co"># ppt &lt;- rast(x = ppt, vals = values(t(ppt)))</span></span>
 <span><span class="co"># srad &lt;- rast(x = srad, vals = values(t(srad)))</span></span>
-<span><span class="co"># soilm &lt;- rast(x = soilm, vals = values(t(soilm)))</span></span></code></pre></div>
+<span><span class="co"># mois &lt;- rast(x = mois, vals = values(t(mois)))</span></span></code></pre></div>
 <p>Then, you will be able to save the monthly rasters in a unique TIFF file. Each month will be saved in the bands of a raster, so you do not need to save each month individually.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create a folder</span></span>
@@ -150,8 +150,8 @@
 <span><span class="co"># terra::writeRaster(srad,</span></span>
 <span><span class="co">#                    here("data", "srad_1990-01-to-2019-12.tif"),</span></span>
 <span><span class="co">#                    overwrite = TRUE)</span></span>
-<span><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/writeRaster.html" class="external-link">writeRaster</a></span><span class="op">(</span><span class="va">soilm</span>,</span>
-<span>                   <span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"soilm_1990-01-to-2019-12.tif"</span><span class="op">)</span>,</span>
+<span><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/writeRaster.html" class="external-link">writeRaster</a></span><span class="op">(</span><span class="va">mois</span>,</span>
+<span>                   <span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"mois_1990-01-to-2019-12.tif"</span><span class="op">)</span>,</span>
 <span>                   overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -163,10 +163,10 @@
 <span><span class="va">tmax_avg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/tapp.html" class="external-link">tapp</a></span><span class="op">(</span><span class="va">tmax</span>, index <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">12</span>, <span class="fl">30</span><span class="op">)</span>, fun <span class="op">=</span> <span class="va">mean</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">ppt_avg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/tapp.html" class="external-link">tapp</a></span><span class="op">(</span><span class="va">ppt</span>, index <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">12</span>, <span class="fl">30</span><span class="op">)</span>, fun <span class="op">=</span> <span class="va">mean</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co"># srad_avg &lt;- tapp(srad, index = rep(1:12, 30), fun = mean, na.rm = TRUE)</span></span>
-<span><span class="va">soilm_avg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/tapp.html" class="external-link">tapp</a></span><span class="op">(</span><span class="va">soilm</span>, index <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">12</span>, <span class="fl">30</span><span class="op">)</span>, fun <span class="op">=</span> <span class="va">mean</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">mois_avg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/tapp.html" class="external-link">tapp</a></span><span class="op">(</span><span class="va">mois</span>, index <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">12</span>, <span class="fl">30</span><span class="op">)</span>, fun <span class="op">=</span> <span class="va">mean</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">bios</span> <span class="op">&lt;-</span> <span class="fu">bioclima</span><span class="fu">::</span><span class="fu"><a href="reference/clima.html">clima</a></span><span class="op">(</span>tmin <span class="op">=</span> <span class="va">tmin_avg</span>, tmax <span class="op">=</span> <span class="va">tmax_avg</span>, prcp <span class="op">=</span> <span class="va">ppt_avg</span>,</span>
-<span>                        srad <span class="op">=</span> <span class="va">srad_avg</span>, soilm <span class="op">=</span> <span class="va">soilm_avg</span>,</span>
+<span>                        srad <span class="op">=</span> <span class="va">srad_avg</span>, mois <span class="op">=</span> <span class="va">mois_avg</span>,</span>
 <span>                        bios <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">19</span>, <span class="fl">28</span><span class="op">:</span><span class="fl">35</span><span class="op">)</span>, period <span class="op">=</span> <span class="fl">3</span>, circular <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -182,7 +182,7 @@
 <code class="sourceCode R"><span><span class="co"># Solar radiation</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">bios</span><span class="op">[[</span><span class="fl">20</span><span class="op">:</span><span class="fl">27</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Soil moisture</span></span>
+<code class="sourceCode R"><span><span class="co"># Moisture</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">bios</span><span class="op">[[</span><span class="fl">28</span><span class="op">:</span><span class="fl">35</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>

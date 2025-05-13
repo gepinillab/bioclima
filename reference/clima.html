@@ -5,7 +5,7 @@ the dismo package and adheres to the methodologies outlined in the ANUCLIM 6.1 m
 and O’Donnell &amp;amp; Ignizio (2012). It calculates a comprehensive set of 35
 bioclimatic variables based on input rasters for minimum temperature,
 maximum temperature, average temperature, precipitation, solar radiation,
-and soil moisture. Users can specify which bioclimatic variables to compute
+and moisture. Users can specify which bioclimatic variables to compute
 using the bios parameter. The function supports customizable temporal
 aggregation (e.g., quarters or semesters) and includes options for circular
 period calculations. Input consistency is validated to ensure matching
@@ -17,7 +17,7 @@ the dismo package and adheres to the methodologies outlined in the ANUCLIM 6.1 m
 and O’Donnell &amp;amp; Ignizio (2012). It calculates a comprehensive set of 35
 bioclimatic variables based on input rasters for minimum temperature,
 maximum temperature, average temperature, precipitation, solar radiation,
-and soil moisture. Users can specify which bioclimatic variables to compute
+and moisture. Users can specify which bioclimatic variables to compute
 using the bios parameter. The function supports customizable temporal
 aggregation (e.g., quarters or semesters) and includes options for circular
 period calculations. Input consistency is validated to ensure matching
@@ -31,7 +31,7 @@ containing the selected bioclimatic layers, ready for downstream analysis."></he
 
     <a class="navbar-brand me-2" href="../index.html">bioclima</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,7 +67,7 @@ the dismo package and adheres to the methodologies outlined in the ANUCLIM 6.1 m
 and O’Donnell &amp; Ignizio (2012). It calculates a comprehensive set of 35
 bioclimatic variables based on input rasters for minimum temperature,
 maximum temperature, average temperature, precipitation, solar radiation,
-and soil moisture. Users can specify which bioclimatic variables to compute
+and moisture. Users can specify which bioclimatic variables to compute
 using the bios parameter. The function supports customizable temporal
 aggregation (e.g., quarters or semesters) and includes options for circular
 period calculations. Input consistency is validated to ensure matching
@@ -85,7 +85,7 @@ containing the selected bioclimatic layers, ready for downstream analysis.</p>
 <span>  tavg <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  prcp <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  srad <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  soilm <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  mois <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  period <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>  circular <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  checkNA <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -123,8 +123,8 @@ tmax are provided</p></dd>
 <dd><p>spatRaster with solar radiation</p></dd>
 
 
-<dt id="arg-soilm">soilm<a class="anchor" aria-label="anchor" href="#arg-soilm"></a></dt>
-<dd><p>spatRaster with soil moisture</p></dd>
+<dt id="arg-mois">mois<a class="anchor" aria-label="anchor" href="#arg-mois"></a></dt>
+<dd><p>spatRaster with moisture</p></dd>
 
 
 <dt id="arg-period">period<a class="anchor" aria-label="anchor" href="#arg-period"></a></dt>
@@ -162,10 +162,10 @@ index along a time series or define a static season of interest, including:</p><
     <dt>driest_period</dt>
 <dd><p>Description of param1 (default: NULL)</p></dd>
 
-    <dt>high_soil_period</dt>
+    <dt>high_mois_period</dt>
 <dd><p>Description of param1 (default: NULL)</p></dd>
 
-    <dt>low_soil_period</dt>
+    <dt>low_mois_period</dt>
 <dd><p>Description of param1 (default: NULL)</p></dd>
 
     <dt>warmest_unit</dt>
@@ -186,10 +186,10 @@ index along a time series or define a static season of interest, including:</p><
     <dt>low_rad_unit</dt>
 <dd><p>Description of param1 (default: NULL)</p></dd>
 
-    <dt>high_soil_unit</dt>
+    <dt>high_mois_unit</dt>
 <dd><p>Description of param1 (default: NULL)</p></dd>
 
-    <dt>low_soil_unit</dt>
+    <dt>low_mois_unit</dt>
 <dd><p>Description of param1 (default: NULL)</p></dd>
 
 
@@ -280,37 +280,37 @@ index along a time series or define a static season of interest, including:</p><
 <dd><p>Radiation of Coldest Period</p></dd>
 
   <dt>bio28*</dt>
-<dd><p>Mean Soil Moisture Content Of Units</p></dd>
+<dd><p>Mean Moisture Content Of Units</p></dd>
 
   <dt>bio29*</dt>
-<dd><p>Highest Soil Moisture Content Unit</p></dd>
+<dd><p>Highest Moisture Content Unit</p></dd>
 
   <dt>bio30*</dt>
-<dd><p>Lowest Soil Moisture Content Unit</p></dd>
+<dd><p>Lowest Moisture Content Unit</p></dd>
 
   <dt>bio31*</dt>
-<dd><p>Soil Moisture Content Seasonality</p></dd>
+<dd><p>Moisture Content Seasonality</p></dd>
 
   <dt>bio32*</dt>
-<dd><p>Mean Soil Moisture Content of Most Moist Period</p></dd>
+<dd><p>Mean Moisture Content of Most Moist Period</p></dd>
 
   <dt>bio33*</dt>
-<dd><p>Mean Soil Moisture Content of Least Moist Period</p></dd>
+<dd><p>Mean Moisture Content of Least Moist Period</p></dd>
 
   <dt>bio34*</dt>
-<dd><p>Mean Soil Moisture Content of Warmest Period</p></dd>
+<dd><p>Mean Moisture Content of Warmest Period</p></dd>
 
   <dt>bio35*</dt>
-<dd><p>Mean Soil Moisture Content of Coldest Period</p></dd>
+<dd><p>Mean Moisture Content of Coldest Period</p></dd>
 
 
 </dl></div>
     <div class="section level2">
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
-    <p>*The original soil moisture variables proposed in the ANUCLIM manual are based
+    <p>*The original moisture variables proposed in the ANUCLIM manual are based
 on the Moisture Index (MI). However, this function allows users to calculate
-soil moisture-based bioclimatic variables using other units of soil moisture
-as inputs, offering greater flexibility in input data usage.</p>
+moisture-based bioclimatic variables using other moisture variables as soil
+moisture or climate moisture index as inputs, offering greater flexibility in input data usage.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
