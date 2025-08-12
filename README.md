@@ -1,4 +1,30 @@
-# bioclima Package
+# bioclima
+
+## ⚠️ This Package is No Longer Maintained ⚠️
+
+**This package, `bioclima`, is now deprecated and is no longer under active development. All of its functionality has been migrated to, and significantly improved in, its successor package: [`fastbioclim`](https://github.com/gepinillab/fastbioclim).**
+
+### Why Switch to `fastbioclim`?
+
+`fastbioclim` is a complete architectural overhaul designed to solve the memory and performance limitations of `bioclima`. It offers:
+
+*   🚀 **Massive Scalability**: A new "tiled" processing engine to handle rasters that are too large to fit in memory.
+*   🧠 **Smarter Performance**: An `auto` mode that intelligently switches between fast in-memory processing and the scalable tiled mode.
+*   ✨ **Expanded Features**: Calculation of up to 35 bioclimatic variables, a powerful `derive_statistics()` function for custom summaries, and more.
+*   📚 **Better Documentation**: Includes new tutorials in English and Spanish.
+
+All future updates and new features will be developed exclusively for `fastbioclim`.
+
+### How to Install the New Package
+
+```r
+# install.packages("remotes")
+remotes::install_github("gepinillab/fastbioclim")
+```
+
+**Thank you for using `bioclima`. We strongly encourage all users to migrate to [`fastbioclim`](https://github.com/gepinillab/fastbioclim) for a much faster, more scalable, and feature-rich experience.**
+
+## (Original README content below)
 
 ## Bioclimatic variables using terra
 
